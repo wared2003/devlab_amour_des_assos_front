@@ -20,7 +20,7 @@ Pour le dévellopement nous utilisons expo, il faut nodejs pour faire fonctioner
 
 ___
 
-##Nomage des commits:
+## Nomage des commits:
 
 \<gitmoji\> + [\<type de commit\>] + \<description du commit\>
 
@@ -30,7 +30,7 @@ ___
 
 ___
 
-##convention branch:
+## convention branch:
 
 pas de dev sur la branch main
 dev sur une branch de la branch dev 
