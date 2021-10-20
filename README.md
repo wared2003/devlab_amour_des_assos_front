@@ -27,3 +27,11 @@ ___
 * :heavy_plus_sign:[add] => ajout .
 * :hammer:[update] => modification de fonctionalité ou fixe.
 * :heavy_minus_sign:[remove] => supression fichier ou fonctionalité.
+
+___
+
+##convention branch:
+pas de dev sur la branch main
+dev sur une branch de la branch dev 
+
+exemple si je dev la page evenement je develloperai sur la branch page_evenement elle meme branch de dev
