@@ -3,8 +3,8 @@
 
 
 ___
-## Mise en place de l'environement de dévellopement
-Pour le dévellopement nous utilisons expo, il faut nodejs pour faire fonctioner expo.
+## Mise en place de l'environement de développement
+Pour le développement nous utilisons expo, il faut nodejs pour faire fonctioner expo.
 
 > installation de node js:
 >> sous linux: 
@@ -20,7 +20,7 @@ Pour le dévellopement nous utilisons expo, il faut nodejs pour faire fonctioner
 
 ___
 
-## Nomage des commits:
+## Nommage des commits:
 
 \<gitmoji\> + [\<type de commit\>] + \<description du commit\>
 
@@ -32,7 +32,7 @@ ___
 
 ## convention branch:
 
-pas de dev sur la branch main
-dev sur une branch de la branch dev 
+Pas de dev sur la branch main
+Dev sur une branch de la branch dev 
 
-exemple si je dev la page evenement je develloperai sur la branch page_evenement elle meme branch de dev
+Exemple : si je dev la page événement je développe sur la branch page_evenement, elle même sur la branch dev
