@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text,ActivityIndicator, Image, TouchableOpacity } from "react-native";
-import { getFilmDetailFromApi, getImageFromApi } from "../API/TMDBApi";
+// import { getFilmDetailFromApi, getImageFromApi } from "../API/TMDBApi";
 
 class JoinEvent extends React.Component{
     constructor(props){
@@ -68,11 +68,16 @@ class JoinEvent extends React.Component{
                             </View>
                         </View>
                         <Text style={styles.aPropos}>A propos</Text>
-                        <Text style={styles.description_aPropos}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida, dolor quis elementum fermentum, augue erat varius metus, sit amet aliquet lactrequis.</Text>
-                        <TouchableOpacity style={styles.button}><Text style={styles.text_button}>M'INSCRIRE</Text></TouchableOpacity>
+                        <Text style={styles.description_aPropos}>Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Mauris gravida, dolor quis elementum fermentum, augue erat varius metus, sit amet
+                            aliquet lactrequis.</Text>
+                        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('test')}>
+                            <Text style={styles.text_button}>M'INSCRIRE</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             )
+
         // }
     }
     
