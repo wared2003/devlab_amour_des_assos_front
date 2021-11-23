@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 
 class EventCard extends React.Component {
-    render() {
+
+    _displayCard() {
         return (
-            <View style={styles.card} >
+            <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Event')}>
                 <View style={styles.leftPart}>
                     <Image source={require('../assets/content.png')} style={styles.cardImg}/>
                     <View style={styles.date}>
@@ -14,11 +15,20 @@ class EventCard extends React.Component {
                 </View>
                 <View style={styles.rightPart}>
                     <Text style={styles.eventTitre}>Titre de l'évenement</Text>
-                    <Text style={styles.eventDescription}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed dia sadipscing elitr sed dia </Text>
+                    <Text style={styles.eventDescription}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+                        dia sadipscing elitr sed dia </Text>
                     <Text style={styles.eventPrix}>15€</Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         );
+    }
+
+    render() {
+        return(
+            <View>
+                {this._displayCard()}
+            </View>
+        )
     }
 }
 const styles = StyleSheet.create({

@@ -2,8 +2,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import JoinEvent from "./components/joinEvent";
-import TEMPcomponent from "./components/TEMPcomponent";
-import backButton from "./components/backButton";
+import Home from "./components/home_page";
 import {Image, TouchableOpacity} from "react-native";
 
 const Stack = createNativeStackNavigator();
@@ -13,9 +12,11 @@ const Navigation = () => {
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen
-                    name="test"
-                    component={TEMPcomponent}
-                    options={{ title: 'Bienvenue'}}
+                    name="Home"
+                    component={Home}
+                    options={{
+                        title: 'Bienvenue',
+                    }}
                 />
                 <Stack.Screen
                     name="Event"

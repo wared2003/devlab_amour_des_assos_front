@@ -71,7 +71,7 @@ class JoinEvent extends React.Component{
                         <Text style={styles.description_aPropos}>Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit. Mauris gravida, dolor quis elementum fermentum, augue erat varius metus, sit amet
                             aliquet lactrequis.</Text>
-                        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('test')}>
+                        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Home')}>
                             <Text style={styles.text_button}>M'INSCRIRE</Text>
                         </TouchableOpacity>
                     </View>
@@ -172,7 +172,8 @@ const styles = StyleSheet.create({
     button: {
         width: '90%',
         paddingVertical: 10,
-        margin: 'auto',
+        marginLeft: 'auto',
+        marginRight: 'auto',
         marginVertical: 24,
         backgroundColor: '#414BCD',
         borderRadius: 20,
