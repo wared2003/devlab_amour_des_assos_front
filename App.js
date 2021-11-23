@@ -1,21 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import EventCard from "./components/event-card";
+import EventFilterBtn from "./components/event_filter_btn"
+import {StyleSheet, View} from 'react-native'
+export default class App extends React.Component {
+  render() {
+    return (
+        <View style={styles.body}>
+          <EventFilterBtn></EventFilterBtn>
+          <EventCard></EventCard>
+        </View>
+    )
+  }
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  body: {
+    paddingLeft: 24,
+    paddingRight: 24,
+    paddingTop: 24,
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    backgroundColor: '#FAFAFA',
+  }
+})

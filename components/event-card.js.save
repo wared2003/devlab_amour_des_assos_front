@@ -1,0 +1,25 @@
+crrrrlearimport React from 'react';
+import { View, Text, Image} from 'react-native';
+
+class EventCard extends React.Component {
+    render() {
+        return (
+            <View>
+                <View>
+                    <Image source={require('@expo/snack-static/react-native-logo.png')}/>
+                    <View>
+                        <Text>25</Text>
+                        <Text>Nov</Text>
+                    </View>
+                </View>
+                <View>
+                    <Text>Titre de l'évenement</Text>
+                    <Text>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed dia sadipscing elitr sed dia </Text>
+                    <Text>15€</Text>
+                </View>
+            </View>
+        );
+    }
+}
+
+export default EventCard;
