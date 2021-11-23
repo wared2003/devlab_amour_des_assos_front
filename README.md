@@ -27,6 +27,8 @@ ___
 * :heavy_plus_sign:[add] => ajout .
 * :hammer:[update] => modification de fonctionalité ou fixe.
 * :heavy_minus_sign:[remove] => supression fichier ou fonctionalité.
+* :memo: => Update de la documentation
+* :bento: => Ajout des assets graphiques
 
 ___
 
