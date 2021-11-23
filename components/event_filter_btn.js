@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
-import {autoCapitalize} from "react-native/Libraries/DeprecatedPropTypes/DeprecatedTextInputPropTypes";
 
 class EventFilterBtn extends React.Component {
     render() {
@@ -31,8 +30,9 @@ class EventFilterBtn extends React.Component {
 const styles = StyleSheet.create({
     btnsWrap:{
       display: "flex",
-      justifyContent: 'space-evenly',
+      justifyContent: 'space-between',
       flexDirection: "row",
+      marginBottom: 24,
 
     },
     btn: {

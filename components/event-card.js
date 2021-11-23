@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
-import {autoCapitalize} from "react-native/Libraries/DeprecatedPropTypes/DeprecatedTextInputPropTypes";
 
 class EventCard extends React.Component {
     render() {
@@ -30,6 +29,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         padding: 8,
         backgroundColor: '#ffffff',
+        marginBottom: 24,
+
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
