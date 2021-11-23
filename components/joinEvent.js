@@ -38,31 +38,31 @@ class JoinEvent extends React.Component{
                     <Image
                         style={styles.image}
                         source={require('../assets/img/event.png')}
-                    ></Image>
+                    />
                     <View style={styles.text_container}>
                         <Text style={styles.title_text}>Nom Event</Text>
                         <View style={styles.main_information}>
-                            <Image style={styles.icon} source={require('../assets/icon/calendar.png')}></Image>
+                            <Image style={styles.icon} source={require('../assets/icon/calendar.png')}/>
                             <View style={styles.info}>
                                 <Text style={styles.first_text}>Vendredi 22 octobre 2021</Text>
                                 <Text style={styles.seconde_text}>22H-02H</Text>
                             </View>
                         </View>
                         <View style={styles.main_information}>
-                            <Image style={styles.icon} source={require('../assets/icon/pin.png')}></Image>
+                            <Image style={styles.icon} source={require('../assets/icon/pin.png')}/>
                             <View style={styles.info}>
                                 <Text style={styles.first_text}>Terminal 7</Text>
                                 <Text style={styles.seconde_text}>1 Pl. de la Prte de Versailles, 75015 Paris</Text>
                             </View>
                         </View>
                         <View style={styles.main_information}>
-                            <Image style={styles.icon} source={require('../assets/icon/dollars.png')}></Image>
+                            <Image style={styles.icon} source={require('../assets/icon/dollars.png')}/>
                             <View style={styles.info}>
                                 <Text style={styles.first_text}>15 €</Text>
                             </View>
                         </View>
                         <View style={styles.main_information}>
-                            <Image style={styles.icon} source={require('../assets/icon/people.png')}></Image>
+                            <Image style={styles.icon} source={require('../assets/icon/people.png')}/>
                             <View style={styles.info}>
                                 <Text style={styles.first_text}>Encore 150 places</Text>
                             </View>
