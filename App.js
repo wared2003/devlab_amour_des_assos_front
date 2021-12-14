@@ -1,49 +1,42 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import JoinEvent from "./components/joinEvent";
 import Home from "./components/home_page";
-import {Image, TouchableOpacity} from "react-native";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import AddEvent from "./components/addEvent";
+import JoinEvent from "./components/joinEvent";
 
-const Stack = createNativeStackNavigator();
 
+const Tab = createBottomTabNavigator();
+
+
+//pour chaque page qui contient une navigation de type stack, creer une navigation homestack comme suit puis l'inclure dans la bar de navigation tabscreen.
+
+//navigation stack de la homepage:
+//<headerShown : false>permet de ne pas afficher le header.
+const HomeStack = createNativeStackNavigator();
+function HomeStackScreen() {
+    return (
+        <HomeStack.Navigator>
+            <HomeStack.Screen name="Home" component={Home} options={{headerShown: false}}/>
+            <HomeStack.Screen name="JoinEvent" component={JoinEvent} />
+        </HomeStack.Navigator>
+    );
+}
+
+
+
+
+
+
+//bar de navigation general :
 const Navigation = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen
-                    name="Home"
-                    component={Home}
-                    options={{
-                        title: 'Bienvenue',
-                    }}
-                />
-                <Stack.Screen
-                    name="Event"
-                    component={JoinEvent}
-                    options={{
-                        title: '',
-                        // header background is transparent
-                        headerTransparent: 'true',
-                        headerStyle:{
-                            // remove border bottom and shadow on header
-                            elevation: 0,
-                            shadowOpacity: 0,
-                            borderBottomWidth: 0,
-                        },
-
-                        // headerBackImageSource: () => ('../assets/icon/arrow_back.png')
-
-                        // headerLeft: (props) => {
-                        //     return(
-                        //         <TouchableOpacity onPress={() => navigation.navigate('text')}>
-                        //             <Image style={{height: 27, width: 27, marginLeft: 16}} source={require('./assets/icon/arrow_back.png')}/>
-                        //         </TouchableOpacity>
-                        //     )
-                        // }
-                    }}
-                />
-            </Stack.Navigator>
+            <Tab.Navigator >
+                <Tab.Screen name="Home" component={HomeStackScreen} options={{headerShown: false}}/>
+                <Tab.Screen name="addEvent" component={AddEvent} options={{headerShown: false}}/>
+            </Tab.Navigator>
         </NavigationContainer>
     );
 };

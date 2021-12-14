@@ -1,17 +1,21 @@
 import React from 'react';
 import EventFilterBtn from "./event_filter_btn";
 import SearchEvent from "./search-event";
-import Navbar from "./navbar";
 import {StyleSheet, View, ScrollView, Image, Text, TouchableOpacity} from 'react-native'
+import JoinEvent from "./joinEvent";
+
 
 export default class Home extends React.Component {
-    render() {
+
+
+    _homepage(){
         return (
             <View style={styles.container}>
                 <ScrollView style={styles.body}>
+                    <Text style={styles.headerTitre}>Bienvenue</Text>
                     <SearchEvent/>
                     <EventFilterBtn/>
-                    <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Event')}>
+                    <TouchableOpacity style={styles.card} onPress={() => {console.log(this.props.navigation.navigate('JoinEvent'))}}>
                         <View style={styles.leftPart}>
                             <Image source={require('../assets/content.png')} style={styles.cardImg}/>
                             <View style={styles.date}>
@@ -26,7 +30,7 @@ export default class Home extends React.Component {
                             <Text style={styles.eventPrix}>15€</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Event')}>
+                    <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('JoinEvent')}>
                         <View style={styles.leftPart}>
                             <Image source={require('../assets/content.png')} style={styles.cardImg}/>
                             <View style={styles.date}>
@@ -41,7 +45,7 @@ export default class Home extends React.Component {
                             <Text style={styles.eventPrix}>15€</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Event')}>
+                    <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('JoinEvent')}>
                         <View style={styles.leftPart}>
                             <Image source={require('../assets/content.png')} style={styles.cardImg}/>
                             <View style={styles.date}>
@@ -57,9 +61,13 @@ export default class Home extends React.Component {
                         </View>
                     </TouchableOpacity>
                 </ScrollView>
-                <Navbar/>
             </View>
         )
+    }
+
+
+    render() {
+        return this._homepage()
     }
 
 }
@@ -75,6 +83,15 @@ const styles = StyleSheet.create({
         paddingTop: 24,
         flex: 1,
         backgroundColor: '#FAFAFA',
+    },
+
+    headerTitre: {
+        color:'#414BCD',
+        fontWeight:600,
+        fontSize: 32,
+        marginBottom: 16,
+        textAlign: "left",
+        marginLeft: 8,
     },
     card: {
         height: 107,
