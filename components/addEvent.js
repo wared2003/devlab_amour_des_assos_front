@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
             borderWidth: 1,
         },
     blackTitle:{
-        fontWeight: 700,
+        fontWeight: "700",
         color: '#000000',
         fontSize: 24,
         marginLeft: 16,
