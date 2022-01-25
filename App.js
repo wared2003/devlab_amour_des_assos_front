@@ -5,6 +5,8 @@ import Home from "./components/home_page";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AddEvent from "./components/addEvent";
 import JoinEvent from "./components/joinEvent";
+import Login from "./components/login";
+import Register from "./components/register";
 
 
 const Tab = createBottomTabNavigator();
@@ -18,6 +20,8 @@ const HomeStack = createNativeStackNavigator();
 function HomeStackScreen() {
     return (
         <HomeStack.Navigator>
+            <HomeStack.Screen name="Login" component={Login}/>
+            <HomeStack.Screen name="Register" component={Register}/>
             <HomeStack.Screen name="Home" component={Home} options={{headerShown: false}}/>
             <HomeStack.Screen name="JoinEvent" component={JoinEvent} />
         </HomeStack.Navigator>
