@@ -5,6 +5,7 @@ import Home from "./components/home_page";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AddEvent from "./components/addEvent";
 import JoinEvent from "./components/joinEvent";
+import Friends from "./components/Friends";
 
 
 const Tab = createBottomTabNavigator();
@@ -20,6 +21,7 @@ function HomeStackScreen() {
         <HomeStack.Navigator>
             <HomeStack.Screen name="Home" component={Home} options={{headerShown: false}}/>
             <HomeStack.Screen name="JoinEvent" component={JoinEvent} />
+            <HomeStack.Screen name="Friends" component={Friends}/>
         </HomeStack.Navigator>
     );
 }
@@ -36,6 +38,7 @@ const Navigation = () => {
             <Tab.Navigator >
                 <Tab.Screen name="Home" component={HomeStackScreen} options={{headerShown: false}}/>
                 <Tab.Screen name="addEvent" component={AddEvent} options={{headerShown: false}}/>
+                <Tab.Screen name="Friends" component={Friends} options={{headerShown: false}}/>
             </Tab.Navigator>
         </NavigationContainer>
     );
