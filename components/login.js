@@ -1,6 +1,7 @@
 import React from "react";
 import {StyleSheet, View, SafeAreaView, TextInput, Button, Text, TouchableOpacity} from "react-native";
 import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class Login extends React.Component {
     constructor(props) {
@@ -11,6 +12,29 @@ class Login extends React.Component {
         }
     }
 
+    _storeData(jwt){
+        try {
+            AsyncStorage.setItem(
+                '@jwt:key',
+                jwt
+            );
+        } catch (error) {
+            // Error saving data
+            console.log('error')
+            console.log(error)
+        }
+    }
+
+    _readData(key){
+        try {
+            return (AsyncStorage.getItem('@jwt:key'));
+        } catch (error) {
+            // Error saving data
+            console.log('error')
+            console.log(error)
+        }
+    }
+
     _login(){
         axios.post('http://192.46.237.170:1337/auth/local', {
             identifier: this.state.username,
@@ -18,7 +42,10 @@ class Login extends React.Component {
         })
             .then((response) => {
                 console.log(response)
+
                 if(response.status === 200){
+                    this._storeData(response.data.jwt)
+
                     this.props.navigation.navigate('Home')
                 }
             })
@@ -46,15 +73,15 @@ class Login extends React.Component {
                     value={this.state.password}
                     onSubmitEditing={() => {this._login(this.props)}}
                 />
-                <Button
+                <TouchableOpacity
+                    style={styles.btn}
                     onPress={() => {this._login(this.props)}}
-                    title="Se connecter"
-                    color="#414BCD"
-                    accessibilityLabel="Se connecter a l'application"
-                />
+                >
+                    <Text style={styles.text} >Se connecter</Text>
+                </TouchableOpacity>
 
                 <TouchableOpacity style={styles.register} onPress={() => this.props.navigation.navigate('Register')}>
-                    <Text style={styles.text_register}>S'inscrire</Text>
+                    <Text>Toujours pas membre ? <Text style={styles.text_register}>Créer un compte</Text></Text>
                 </TouchableOpacity>
             </SafeAreaView>
         )
@@ -80,14 +107,31 @@ const styles = StyleSheet.create({
 
     input:{
         marginBottom: '2rem',
+        borderBottomColor: '#D7D7D7',
+        borderStyle: "solid",
+        borderBottomWidth: 2,
+        paddingBottom: 10
+    },
+
+    btn:{
+        backgroundColor: '#414BCD',
+        textAlign: "center",
+        borderRadius: 100
+    },
+
+    text:{
+        color: '#FFFFFF',
+        padding: 10,
+        textTransform: "uppercase",
     },
 
     register:{
-        marginTop: '2rem'
+        marginTop: '2rem',
+        textAlign: "center"
     },
 
     text_register:{
-        textAlign: 'center',
+        color: '#414CBD'
     }
 })
 

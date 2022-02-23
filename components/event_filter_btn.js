@@ -1,7 +1,24 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
+import {getCategory} from '../API/api'
 
 class EventFilterBtn extends React.Component {
+
+    constructor(props){
+        super(props)
+        this.category = []
+    }
+
+    componentDidMount() {
+        getCategory()
+            .then((data)=>{
+                this.category = data.data
+            })
+            .catch((e)=>{
+                console.log(e)
+            })
+    }
+
     render() {
         return (
             <View style={styles.btnsWrap}>
