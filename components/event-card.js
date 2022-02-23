@@ -1,36 +1,30 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import moment from "moment";
 
 class EventCard extends React.Component {
 
-    _displayCard() {
+    render() {
+        const {event, eventDetail} = this.props
         return (
             <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Event')}>
                 <View style={styles.leftPart}>
                     <Image source={require('../assets/content.png')} style={styles.cardImg}/>
                     <View style={styles.date}>
-                        <Text style={styles.dateDay}>25</Text>
-                        <Text style={styles.dateMonth}>Nov</Text>
+                        <Text style={styles.dateDay}>{moment(event.Date_and_time).locale('fr').format('DD')}</Text>
+                        <Text style={styles.dateMonth}>{moment(event.Date_and_time).locale('fr').format('MMM')}</Text>
                     </View>
                 </View>
                 <View style={styles.rightPart}>
-                    <Text style={styles.eventTitre}>Titre de l'évenement</Text>
-                    <Text style={styles.eventDescription}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                        dia sadipscing elitr sed dia </Text>
-                    <Text style={styles.eventPrix}>15€</Text>
+                    <Text style={styles.eventTitre}>{event.name}</Text>
+                    <Text style={styles.eventDescription}>{event.description}</Text>
+                    <Text style={styles.eventPrix}>{event.price}€</Text>
                 </View>
             </TouchableOpacity>
-        );
-    }
-
-    render() {
-        return(
-            <View>
-                {this._displayCard()}
-            </View>
         )
     }
 }
+
 const styles = StyleSheet.create({
     card: {
         height: 107,
@@ -62,6 +56,7 @@ const styles = StyleSheet.create({
     rightPart: {
         flex: 2,
         paddingLeft: 12,
+        position: "relative"
     },
     date: {
         position: "relative",
@@ -84,19 +79,21 @@ const styles = StyleSheet.create({
         color: '#232A85',
         textAlign: "center",
     },
-    eventTitre:{
+    eventTitre: {
         fontSize: 16,
         fontWeight: 'bold',
     },
-    eventDescription:{
+    eventDescription: {
         marginTop: 10,
         fontSize: 12,
         color: '#A3A5C2',
         fontWeight: '400',
         paddingRight: 8,
     },
-    eventPrix:{
-        marginLeft: 'auto',
+    eventPrix: {
+        position: "absolute",
+        bottom: 0,
+        right: 10,
         color: '#232A85',
         fontSize: 14,
     },
