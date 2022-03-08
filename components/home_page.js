@@ -1,12 +1,50 @@
 import React from 'react';
 import EventFilterBtn from "./event_filter_btn";
 import SearchEvent from "./search-event";
-import {StyleSheet, View, ScrollView, Image, Text, TouchableOpacity} from 'react-native'
+import {StyleSheet, View, ScrollView, Image, Text, TouchableOpacity, FlatList} from 'react-native'
 import JoinEvent from "./joinEvent";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {getCategory, getEvent} from "../API/api";
+import EventCard from "./event-card";
 
 
 export default class Home extends React.Component {
 
+    constructor(props){
+        super(props)
+        this.state = {
+            events: [],
+            isLoading: false //no loading by default
+        }
+    }
+
+    _readData(key){
+        try {
+            return (AsyncStorage.getItem('@jwt:key'));
+        } catch (error) {
+            // Error saving data
+            console.log('error')
+            console.log(error)
+        }
+    }
+
+    _displayEvent = (idFilm) =>{
+        console.log("Display film with id " + idFilm)
+        this.props.navigation.navigate("FilmDetail", {idFilm: idFilm})
+    }
+
+    componentDidMount() {
+        getEvent()
+            .then((data)=>{
+                this.setState({
+                    events: data.data
+
+                })
+            })
+            .catch((e)=>{
+                console.log(e)
+            })
+    }
 
     _homepage(){
         return (
@@ -15,21 +53,6 @@ export default class Home extends React.Component {
                     <Text style={styles.headerTitre}>Bienvenue</Text>
                     <SearchEvent/>
                     <EventFilterBtn/>
-                    <TouchableOpacity style={styles.card} onPress={() => {console.log(this.props.navigation.navigate('JoinEvent'))}}>
-                        <View style={styles.leftPart}>
-                            <Image source={require('../assets/content.png')} style={styles.cardImg}/>
-                            <View style={styles.date}>
-                                <Text style={styles.dateDay}>25</Text>
-                                <Text style={styles.dateMonth}>Nov</Text>
-                            </View>
-                        </View>
-                        <View style={styles.rightPart}>
-                            <Text style={styles.eventTitre}>Titre de l'évenement</Text>
-                            <Text style={styles.eventDescription}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                                dia sadipscing elitr sed dia </Text>
-                            <Text style={styles.eventPrix}>15€</Text>
-                        </View>
-                    </TouchableOpacity>
                     <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('JoinEvent')}>
                         <View style={styles.leftPart}>
                             <Image source={require('../assets/content.png')} style={styles.cardImg}/>
@@ -45,21 +68,11 @@ export default class Home extends React.Component {
                             <Text style={styles.eventPrix}>15€</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('JoinEvent')}>
-                        <View style={styles.leftPart}>
-                            <Image source={require('../assets/content.png')} style={styles.cardImg}/>
-                            <View style={styles.date}>
-                                <Text style={styles.dateDay}>25</Text>
-                                <Text style={styles.dateMonth}>Nov</Text>
-                            </View>
-                        </View>
-                        <View style={styles.rightPart}>
-                            <Text style={styles.eventTitre}>Titre de l'évenement</Text>
-                            <Text style={styles.eventDescription}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                                dia sadipscing elitr sed dia </Text>
-                            <Text style={styles.eventPrix}>15€</Text>
-                        </View>
-                    </TouchableOpacity>
+                    <FlatList
+                        data={this.state.events}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={({item}) => <EventCard event={item} eventDetail={this._displayEvent}/>}
+                    />
                 </ScrollView>
             </View>
         )
