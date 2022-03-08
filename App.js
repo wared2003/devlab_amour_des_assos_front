@@ -7,6 +7,7 @@ import AddEvent from "./components/addEvent";
 import JoinEvent from "./components/joinEvent";
 import Login from "./components/login";
 import Register from "./components/register";
+import Friends from "./components/Friends";
 
 
 const Tab = createBottomTabNavigator();
@@ -24,6 +25,7 @@ function HomeStackScreen() {
             <HomeStack.Screen name="Register" component={Register}/>
             <HomeStack.Screen name="Home" component={Home} options={{headerShown: false}}/>
             <HomeStack.Screen name="JoinEvent" component={JoinEvent} />
+            <HomeStack.Screen name="Friends" component={Friends}/>
         </HomeStack.Navigator>
     );
 }
