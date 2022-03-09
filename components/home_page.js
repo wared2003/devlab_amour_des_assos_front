@@ -28,9 +28,9 @@ export default class Home extends React.Component {
         }
     }
 
-    _displayEvent = (idFilm) =>{
-        console.log("Display film with id " + idFilm)
-        this.props.navigation.navigate("FilmDetail", {idFilm: idFilm})
+    _displayEvent(){
+        console.log("Display film with id ")
+        this.props.navigation.navigate("JoinEvent")
     }
 
     componentDidMount() {
@@ -71,7 +71,7 @@ export default class Home extends React.Component {
                     <FlatList
                         data={this.state.events}
                         keyExtractor={(item) => item.id.toString()}
-                        renderItem={({item}) => <EventCard event={item} eventDetail={this._displayEvent}/>}
+                        renderItem={({item}) => <EventCard event={item} eventDetail={this.props}/>}
                     />
                 </ScrollView>
             </View>
