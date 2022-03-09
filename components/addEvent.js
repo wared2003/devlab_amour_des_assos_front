@@ -1,10 +1,33 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { StyleSheet, View, Text, Image, TextInput, ScrollView} from "react-native";
 import CustomTextInput from "./TextInput";
 import EventFilterBtn from "./event_filter_btn";
 import CustomButton from "./button";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 class AddEvent extends React.Component{
 
+    _uploadImage(e){
+        e.preventDefault()
+        const formData = new FormData()
+        const file = document.getElementById('testa').files
+        formData.append('files', file[0])
+        let jwt = AsyncStorage.getItem('@jwt:key')
+
+        jwt.then(res => {
+            axios.post("http://192.46.237.170:1337/upload", formData, {
+                headers:{
+                    Authorization: 'Bearer ' + res,
+                }
+            })
+                .then((response)=>{
+                    console.log(response)
+                }).catch((error)=>{
+                //handle error
+                console.log(error)
+            })
+        })
+    }
 
     render() {
         return(
@@ -14,6 +37,10 @@ class AddEvent extends React.Component{
                         style={styles.eventImg}
                         source={require('../assets/img/event.png')}
                     />
+                    <form onSubmit={this._uploadImage}>
+                        <input type={"file"} id={'testa'} name={'files'}/>
+                        <input type={"submit"}/>
+                    </form>
                     <View style={styles.formWrapper}>
                         <View style={styles.name}>
                             <CustomTextInput placeHolder={"Nom de l'évent"}/>
