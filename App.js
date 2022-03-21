@@ -8,6 +8,7 @@ import JoinEvent from "./components/joinEvent";
 import Login from "./components/login";
 import Register from "./components/register";
 import Friends from "./components/Friends";
+import Associations from "./components/associations";
 
 
 const Tab = createBottomTabNavigator();
@@ -21,11 +22,12 @@ const HomeStack = createNativeStackNavigator();
 function HomeStackScreen() {
     return (
         <HomeStack.Navigator>
+            <HomeStack.Screen name="Home" component={Home} options={{headerShown: false}}/>
             <HomeStack.Screen name="Login" component={Login}/>
             <HomeStack.Screen name="Register" component={Register}/>
-            <HomeStack.Screen name="Home" component={Home} options={{headerShown: false}}/>
             <HomeStack.Screen name="JoinEvent" component={JoinEvent} />
             <HomeStack.Screen name="Friends" component={Friends}/>
+            <HomeStack.Screen name="asso" component={Associations}/>
         </HomeStack.Navigator>
     );
 }
@@ -40,6 +42,7 @@ const Navigation = () => {
     return (
         <NavigationContainer>
             <Tab.Navigator >
+                <Tab.Screen name="Associations" component={Associations} options={{headerShown: false}}/>
                 <Tab.Screen name="Home" component={HomeStackScreen} options={{headerShown: false}}/>
                 <Tab.Screen name="addEvent" component={AddEvent} options={{headerShown: false}}/>
             </Tab.Navigator>
