@@ -79,7 +79,6 @@ class Login extends React.Component {
                 >
                     <Text style={styles.text} >Se connecter</Text>
                 </TouchableOpacity>
-
                 <TouchableOpacity style={styles.register} onPress={() => this.props.navigation.navigate('Register')}>
                     <Text>Toujours pas membre ? <Text style={styles.text_register}>Créer un compte</Text></Text>
                 </TouchableOpacity>
@@ -99,14 +98,18 @@ class Login extends React.Component {
 const styles = StyleSheet.create({
     main_container: {
         flex: 1,
+        alignItems: "center",
+        justifyContent: "center"
     },
     form:{
         margin: 'auto',
         width: '80%',
+        alignItems: "center"
     },
 
     input:{
-        marginBottom: '2rem',
+        width: '100%',
+        marginBottom: 24,
         borderBottomColor: '#D7D7D7',
         borderStyle: "solid",
         borderBottomWidth: 2,
@@ -116,7 +119,8 @@ const styles = StyleSheet.create({
     btn:{
         backgroundColor: '#414BCD',
         textAlign: "center",
-        borderRadius: 100
+        borderRadius: 100,
+        alignItems: "center"
     },
 
     text:{
@@ -126,7 +130,7 @@ const styles = StyleSheet.create({
     },
 
     register:{
-        marginTop: '2rem',
+        marginTop: 24,
         textAlign: "center"
     },
 
