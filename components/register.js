@@ -68,15 +68,14 @@ class Register extends React.Component {
                     value={this.state.passwordConfirmation}
                     onSubmitEditing={() => {this._register(this.props)}}
                 />
-                <Button
+                <TouchableOpacity
+                    style={styles.btn}
                     onPress={() => {this._register(this.props)}}
-                    title="Se connecter"
-                    color="#414BCD"
-                    accessibilityLabel="Se connecter a l'application"
-                />
-
+                >
+                    <Text style={styles.text} >S'inscrire</Text>
+                </TouchableOpacity>
                 <TouchableOpacity style={styles.register} onPress={() => this.props.navigation.navigate('Login')}>
-                    <Text style={styles.text_register}>Se connecter</Text>
+                    <Text>Déjà un compte ? <Text style={styles.text_register}>Se connecter</Text></Text>
                 </TouchableOpacity>
             </SafeAreaView>
         )
@@ -94,23 +93,44 @@ class Register extends React.Component {
 const styles = StyleSheet.create({
     main_container: {
         flex: 1,
+        alignItems: "center",
+        justifyContent: "center"
     },
     form:{
         margin: 'auto',
         width: '80%',
+        alignItems: "center"
     },
 
     input:{
-        marginBottom: '2rem',
+        width: '100%',
+        marginBottom: 24,
+        borderBottomColor: '#D7D7D7',
+        borderStyle: "solid",
+        borderBottomWidth: 2,
+        paddingBottom: 10
     },
 
     register:{
-        marginTop: '2rem'
+        marginTop: 24
     },
 
     text_register:{
-        textAlign: 'center',
-    }
+        color: '#414CBD'
+    },
+
+    btn:{
+        backgroundColor: '#414BCD',
+        textAlign: "center",
+        borderRadius: 100,
+        alignItems: "center"
+    },
+
+    text:{
+        color: '#FFFFFF',
+        padding: 10,
+        textTransform: "uppercase",
+    },
 })
 
 export default Register
