@@ -1,49 +1,52 @@
-import React from 'react'
-import { StyleSheet, View, Text, Image, TextInput, ScrollView} from "react-native";
+import React, {useState} from 'react'
+import {StyleSheet, View, Text, Image, TextInput, ScrollView, Button} from "react-native";
 import CustomTextInput from "./TextInput";
 import EventFilterBtn from "./event_filter_btn";
 import CustomButton from "./button";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as WebBrowser from 'expo-web-browser';
+
 class AddEvent extends React.Component{
 
-    _uploadImage(e){
-        e.preventDefault()
-        const formData = new FormData()
-        const file = document.getElementById('testa').files
-        formData.append('files', file[0])
-        let jwt = AsyncStorage.getItem('@jwt:key')
+    // _uploadImage(e){
+    //     e.preventDefault()
+    //     const formData = new FormData()
+    //     const file = document.getElementById('testa').files
+    //     formData.append('files', file[0])
+    //     let jwt = AsyncStorage.getItem('@jwt:key')
+    //     console.log(file[0])
+    //     jwt.then(res => {
+    //         axios.post("http://192.46.237.170:1337/upload", formData, {
+    //             headers:{
+    //                 Authorization: 'Bearer ' + res,
+    //             }
+    //         })
+    //             .then((response)=>{
+    //                 console.log(response)
+    //             }).catch((error)=>{
+    //             //handle error
+    //             console.log(error)
+    //         })
+    //     })
+    // }
 
-        jwt.then(res => {
-            axios.post("http://192.46.237.170:1337/upload", formData, {
-                headers:{
-                    Authorization: 'Bearer ' + res,
-                }
-            })
-                .then((response)=>{
-                    console.log(response)
-                }).catch((error)=>{
-                //handle error
-                console.log(error)
-            })
+    _handlePressButtonAsync = async () => {
+        let jwt = AsyncStorage.getItem('@jwt:key')
+        jwt.then(async res => {
+            let result = await WebBrowser.openBrowserAsync('http://devlab.edgar-lecomte.fr/?jwt=' + res);
         })
-    }
+        console.log(result)
+    };
 
     render() {
         return(
             <ScrollView>
                 <View style={styles.main_container}>
-                    <Image
-                        style={styles.eventImg}
-                        source={require('../assets/img/event.png')}
-                    />
-                    <form onSubmit={this._uploadImage}>
-                        <input type={"file"} id={'testa'} name={'files'}/>
-                        <input type={"submit"}/>
-                    </form>
-                    <View style={styles.formWrapper}>
+                        <View style={styles.formWrapper}>
+                    <Button title="Open WebBrowser" onPress={this._handlePressButtonAsync} />
                         <View style={styles.name}>
-                            <CustomTextInput placeHolder={"Nom de l'évent"}/>
+                            <CustomTextInput placeHolder={"Nom de l'évent"} nom={'name'}/>
                         </View>
 
                         <View style={styles.inputWrap}>

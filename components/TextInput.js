@@ -7,11 +7,13 @@ class CustomTextInput extends React.Component {
     render() {
 
         const propsPlaceHolder = this.props.placeHolder;
+        const propsName = this.props.nom;
         return (
             <View style={styles.searchBar}>
                 <Image style={styles.iconSearch} source={require('../assets/search.png')}/>
                 <TextInput
                     placeholder = {propsPlaceHolder}
+                    name = {propsName}
                     // onChangeText={(text) => this._searchTextInputChanged(text)}
                     //returnKeyType= 'search' // met le bouton de retour en mode recherche
                     // onSubmitEditing={() => this._searchFilm()}
