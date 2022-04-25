@@ -36,7 +36,7 @@ class AddEvent extends React.Component{
         jwt.then(async res => {
             let result = await WebBrowser.openBrowserAsync('http://devlab.edgar-lecomte.fr/?jwt=' + res);
         })
-        console.log(result)
+        // console.log(result)
     };
 
     render() {
