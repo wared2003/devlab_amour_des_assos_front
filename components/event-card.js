@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import moment from "moment";
+import {getUrl} from "../API/api";
 
 class EventCard extends React.Component {
 
@@ -9,7 +10,7 @@ class EventCard extends React.Component {
         return (
             <TouchableOpacity style={styles.card} onPress={() => eventDetail.navigation.navigate('JoinEvent')}>
                 <View style={styles.leftPart}>
-                    <Image source={require('../assets/content.png')} style={styles.cardImg}/>
+                    <Image source={getUrl() + event.ImageLink} style={styles.cardImg}/>
                     <View style={styles.date}>
                         <Text style={styles.dateDay}>{moment(event.Date_and_time).locale('fr').format('DD')}</Text>
                         <Text style={styles.dateMonth}>{moment(event.Date_and_time).locale('fr').format('MMM')}</Text>
