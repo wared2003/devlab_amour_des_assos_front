@@ -7,7 +7,7 @@ class EventCard extends React.Component {
     render() {
         const {event, eventDetail} = this.props
         return (
-            <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Event')}>
+            <TouchableOpacity style={styles.card} onPress={() => eventDetail.navigation.navigate('JoinEvent')}>
                 <View style={styles.leftPart}>
                     <Image source={require('../assets/content.png')} style={styles.cardImg}/>
                     <View style={styles.date}>
