@@ -6,7 +6,7 @@ import ListMember from "./list-member";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {NavigationContainer} from "@react-navigation/native";
 import Home from "./home_page";
-import { View, Image, Text, StyleSheet, ScrollView, SafeAreaView,} from 'react-native';
+import {View, Image, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity,} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -21,6 +21,13 @@ const Tabs = () => {
                         height: 60,
                         borderTopLeftRadius: 20,
                         borderTopRightRadius: 20,
+                        shadowColor: "#000",
+                        shadowOffset: {
+                            width: 0,
+                            height: 2,
+                        },
+                        shadowOpacity: 0.25,
+                        shadowRadius: 3.84,
                     }
                 }}>
                 {/*<Tab.Screen name="Home" component={HomeStackScreen} options={{headerShown: false}}/>*/}
@@ -32,6 +39,7 @@ const Tabs = () => {
                                    style={{
                                        width:25,
                                        height:25,
+                                       opacity: focused ? 1 : 0.5,
 
                                    }}
                             />
@@ -41,12 +49,12 @@ const Tabs = () => {
                 <Tab.Screen name="addEvent" component={AddEvent} options={{headerShown: false ,
                     tabBarIcon: ({focused}) => (
                         <View>
-                            <Image source={require('../assets/home.png')}
+                            <Image source={require('../assets/calendar.png')}
                                    resizeMode='contain'
                                    style={{
                                        width:25,
                                        height:25,
-
+                                       opacity: focused ? 1 : 0.5,
                                    }}/>
 
                         </View>
@@ -54,11 +62,12 @@ const Tabs = () => {
                 <Tab.Screen name="Friends" component={Friends} options={{headerShown: false,
                     tabBarIcon: ({focused}) => (
                         <View>
-                            <Image source={require('../assets/people.png')}
+                            <Image source={require('../assets/people2.png')}
                                    resizeMode='contain'
                                    style={{
                                        width:25,
                                        height:25,
+                                       opacity: focused ? 1 : 0.5,
 
                                    }}/>
                         </View>
@@ -66,11 +75,12 @@ const Tabs = () => {
                 <Tab.Screen name="Member" component={ListMember} options={{headerShown: false,
                     tabBarIcon: ({focused}) => (
                         <View>
-                            <Image source={require('../assets/user.png')}
+                            <Image source={require('../assets/user2.png')}
                                    resizeMode='contain'
                                    style={{
                                        width:25,
                                        height:25,
+                                       opacity: focused ? 1 : 0.5,
 
                                    }}/>
                         </View>
@@ -80,7 +90,9 @@ const Tabs = () => {
 };
 
 const styles = StyleSheet.create({
-
+ homeImage:{
+     opacity: 0.2
+ }
 })
 
 export default Tabs
