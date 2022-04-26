@@ -3,6 +3,7 @@ import SearchEvent from "./search-event";
 import {View, Text, StyleSheet, ScrollView, Image, SafeAreaView,} from 'react-native';
 import JoinEvent from "./joinEvent";
 import {Collapse, CollapseHeader, CollapseBody,AccordionList} from "accordion-collapse-react-native";
+
 class Friends extends React.Component {
 
 
@@ -12,7 +13,6 @@ class Friends extends React.Component {
                 <ScrollView style={styles.body}>
                     <Text style={styles.headerTitre}>Friends</Text>
                     <SearchEvent placeholder="Titre"/>
-
                     <Collapse>
                         <CollapseHeader>
                             <View>
