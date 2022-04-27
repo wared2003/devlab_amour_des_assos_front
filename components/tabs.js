@@ -4,9 +4,10 @@ import JoinEvent from "./joinEvent";
 import Friends from "./Friends";
 import ListMember from "./list-member";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {NavigationContainer} from "@react-navigation/native";
 import Home from "./home_page";
+import MembreAsso from "./membre_asso";
 import {View, Image, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity,} from 'react-native';
+import login from "./login";
 
 const Tab = createBottomTabNavigator();
 
@@ -31,7 +32,7 @@ const Tabs = () => {
                     }
                 }}>
                 {/*<Tab.Screen name="Home" component={HomeStackScreen} options={{headerShown: false}}/>*/}
-                <Tab.Screen name="Home" component={Home} options={{headerShown: false,
+                <Tab.Screen name="Home" component={login} options={{headerShown: false,
                     tabBarIcon: ({focused}) => (
                         <View style={styles.container}>
                             <Image source={require('../assets/home.png')}
@@ -72,7 +73,7 @@ const Tabs = () => {
                                    }}/>
                         </View>
                     )}}/>
-                <Tab.Screen name="Member" component={ListMember} options={{headerShown: false,
+                <Tab.Screen name="Member" component={MembreAsso} options={{headerShown: false,
                     tabBarIcon: ({focused}) => (
                         <View>
                             <Image source={require('../assets/user2.png')}

@@ -8,7 +8,7 @@ class ListMember extends React.Component {
         return(
             <View style={styles.container}>
                 <ScrollView style={styles.body}>
-                    <View style={styles.ContainerTitle}>
+                    <View>
                         <Text style={styles.title}>LéoWorkout</Text>
                         <Text style={styles.descPage}>Membres de l'association</Text>
                     </View>
