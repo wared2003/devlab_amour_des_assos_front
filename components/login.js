@@ -2,12 +2,14 @@ import React from "react";
 import {StyleSheet, View, SafeAreaView, TextInput, Button, Text, TouchableOpacity} from "react-native";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Home from "./home_page";
+import JoinEvent from "./joinEvent";
 
 class Login extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            username: '',
+            email: '',
             password: ''
         }
     }
@@ -36,16 +38,16 @@ class Login extends React.Component {
     }
 
     _login(){
-        axios.post('http://192.46.237.170:1337/auth/local', {
-            identifier: this.state.username,
+        axios.post('https://127.0.0.1:8000/api/login', {
+            email: this.state.email,
             password: this.state.password
         })
             .then((response) => {
                 console.log(response)
 
                 if(response.status === 200){
-                    this._storeData(response.data.jwt)
-
+                    this._storeData(response.data.token)
+                    console.log('ici')
                     this.props.navigation.navigate('Home')
                 }
             })
@@ -60,9 +62,9 @@ class Login extends React.Component {
             <SafeAreaView style={styles.form}>
                 <TextInput
                     style={styles.input}
-                    placeholder="Nom d'utilisateur"
-                    onChangeText={(username) => this.setState({username})}
-                    value={this.state.username}
+                    placeholder="E-mail"
+                    onChangeText={(email) => this.setState({email})}
+                    value={this.state.email}
                 />
                 <TextInput
                     style={styles.input}
