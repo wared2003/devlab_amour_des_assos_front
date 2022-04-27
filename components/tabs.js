@@ -8,6 +8,31 @@ import Home from "./home_page";
 import MembreAsso from "./membre_asso";
 import {View, Image, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity,} from 'react-native';
 import login from "./login";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import Login from "./login";
+import Register from "./register";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+function checkJwt(){
+    AsyncStorage.getItem('@jwt:key').then(jwt => {
+        return jwt === null || jwt === 'undefined'
+    })
+}
+
+const HomeStack = createNativeStackNavigator();
+function HomeStackScreen() {
+    return (
+        <HomeStack.Navigator>
+            <HomeStack.Screen name="Home" component={Home} options={{headerShown: false}}/>
+            {checkJwt ? (
+                <HomeStack.Screen name="Login" component={Login}/>
+            ) : (null)}
+            <HomeStack.Screen name="JoinEvent" component={JoinEvent}/>
+            <HomeStack.Screen name="Friends" component={Friends}/>
+            <HomeStack.Screen name="Register" component={Register}/>
+        </HomeStack.Navigator>
+    );
+}
 
 const Tab = createBottomTabNavigator();
 
@@ -32,7 +57,7 @@ const Tabs = () => {
                     }
                 }}>
                 {/*<Tab.Screen name="Home" component={HomeStackScreen} options={{headerShown: false}}/>*/}
-                <Tab.Screen name="Home" component={login} options={{headerShown: false,
+                <Tab.Screen name="HomeStack" component={HomeStackScreen} options={{headerShown: false,
                     tabBarIcon: ({focused}) => (
                         <View style={styles.container}>
                             <Image source={require('../assets/home.png')}

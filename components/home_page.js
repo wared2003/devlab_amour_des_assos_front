@@ -80,6 +80,12 @@ export default class Home extends React.Component {
 
 
     render() {
+        AsyncStorage.getItem('@jwt:key').then(jwt => {
+                console.log(jwt)
+            if (jwt === 'undefined' || jwt === null){
+                this.props.navigation.navigate('Login')
+            }
+        })
         return this._homepage()
     }
 
