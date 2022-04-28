@@ -48,10 +48,17 @@ class AddEvent extends React.Component{
                         source={require('../assets/img/event.png')}
                     />
                     <TouchableOpacity style={styles.image_btn}>
-                        <Text>Ajouter une image</Text>
+                        <Text style={styles.image_btn_txt}>Ajouter une image</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.back_btn}>
+                        <Image
+                            style={styles.back_icon}
+                            source={require('../assets/action.png')}
+                        />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.text_container}>
+                    <ScrollView>
                     <View style={styles.name}>
                         <TextInput
                             style={styles.input_add_event}
@@ -59,7 +66,7 @@ class AddEvent extends React.Component{
                             keyboardType="numeric"
                         />
                     </View>
-                    <View style={styles.information_container}>
+                    <View>
                         <View style={styles.main_information}>
                             <Image source={require('../assets/icon/calendar.png')} style={styles.icon} />
                             <TextInput
@@ -116,9 +123,10 @@ class AddEvent extends React.Component{
                     <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Home')}>
                         <Text style={styles.text_button}>AJOUTER</Text>
                     </TouchableOpacity>
-                </View>
+                </ScrollView>
             </View>
-        );
+            </View>
+        )
     }
 }
 const styles = StyleSheet.create({
@@ -150,7 +158,29 @@ const styles = StyleSheet.create({
     },
     image_btn : {
         elevation: 99,
-        position: "absolute",
+        color: "white",
+        borderWidth: 3,
+        borderColor: 'white',
+        borderRadius: 10,
+        paddingVertical: 9,
+        paddingHorizontal: 13,
+        position: 'absolute',
+        alignSelf: 'center',
+        marginVertical: 0,
+        top: '50%',
+        transform: [{translateY: '-50%'}]
+    },
+    back_btn : {
+        elevation: 99,
+        position: 'absolute',
+    },
+    back_icon : {
+        width: 48,
+        height: 48,
+    },
+    image_btn_txt : {
+        color: "white",
+        fontSize: 16,
     },
     loading_container: {
         position: 'absolute',
@@ -184,7 +214,8 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         color: '#14151F',
-        justifyContent: "space-around"
+        justifyContent: "space-around",
+        paddingTop: 17,
     },
     title_text: {
         // fontFamily: 'Open Sans',
@@ -198,6 +229,7 @@ const styles = StyleSheet.create({
     main_information: {
         flexDirection: "row",
         alignItems: "center",
+        marginTop: 18,
     },
 
     first_text:{
@@ -207,7 +239,7 @@ const styles = StyleSheet.create({
     icon: {
         width: 40,
         height: 40,
-        marginRight:8,
+        marginRight:14,
     },
 
     aPropos: {
@@ -215,6 +247,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         lineHeight: 22,
         marginBottom: 13,
+        marginTop: 20,
     },
 
     description_aPropos: {
