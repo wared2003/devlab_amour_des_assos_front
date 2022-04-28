@@ -1,12 +1,20 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, Image, TextInput, ScrollView} from "react-native";
+import { StyleSheet, View, Text, Image, TextInput, ScrollView, FlatList} from "react-native";
 import CustomTextInput from "./TextInput";
 import EventFilterBtn from "./event_filter_btn";
 import CustomButton from "./button";
 import EventCard from "./event-card";
 import Button from "./button";
+import EventCardWait from "./event-card-wait";
 class Profile extends React.Component{
 
+    constructor(props){
+        super(props)
+        this.state = {
+            events: [],
+            isLoading: false //no loading by default
+        }
+    }
     render() {
 
         return(
@@ -54,10 +62,12 @@ class Profile extends React.Component{
                         </View>
                     </View>
                     <Text style={styles.AssoAutreDetailsEvents}>Événements à venir</Text> {/*meme partie que dans profile*/}
-                    {/*Need EVENT CARDS WITH API CALLS*/}
-                    {/*Need EVENT CARDS WITH API CALLS*/}
-                    {/*Need EVENT CARDS WITH API CALLS*/}
-                    {/*Need EVENT CARDS WITH API CALLS*/}
+                    <EventCardWait/>
+                    <FlatList
+                        data={this.state.events}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={({item}) => <EventCardWait event={item} eventDetail={this.props}/>}
+                    />
 
                 </View>
             </ScrollView>
