@@ -1,19 +1,19 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import moment from "moment";
+import {getUrlImage} from "../API/api";
 
 class OtherAssoCard extends React.Component {
 
     render() {
-        const {event, eventDetail} = this.props
+        const {asso, eventDetail} = this.props
         return (
-            <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Event')}>
+            <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Event', {id: asso.id})}>
                 <View style={styles.leftPart}>
-                    <Image source={require('../assets/content.png')} style={styles.cardImg}/>
+                    <Image source={getUrlImage() + '/assos/' + asso.logo} style={styles.cardImg}/>
                 </View>
                 <View style={styles.rightPart}>
-                    <Text style={styles.eventTitre}>{event.name}</Text>
-                    <Text style={styles.eventDescription}>{event.description}</Text>
+                    <Text style={styles.eventTitre}>{asso.name}</Text>
                 </View>
             </TouchableOpacity>
         )

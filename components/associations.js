@@ -1,11 +1,10 @@
 import React from 'react';
 import EventFilterBtn from "./event_filter_btn";
 import SearchEvent from "./search-event";
-import {StyleSheet, View, ScrollView, Image, Text, TouchableOpacity, FlatList} from 'react-native'
+import {StyleSheet, View, ScrollView, Text, FlatList} from 'react-native'
 import JoinEvent from "./joinEvent";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {getCategory, getEvent} from "../API/api";
-import EventCard from "./event-card";
+import {getAsso, getAssoByUser, getCategory, getEvent} from "../API/api";
 import OtherAssoCard from "./other-asso-card";
 import MyAssoCard from "./my-asso-card";
 
@@ -15,6 +14,8 @@ export default class Associations extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            assoUser: [],
+            asso: [],
             events: [],
             isLoading: false //no loading by default
         }
@@ -30,12 +31,28 @@ export default class Associations extends React.Component {
         }
     }
 
-    _displayEvent = (idFilm) => {
-        console.log("Display film with id " + idFilm)
-        this.props.navigation.navigate("FilmDetail", {idFilm: idFilm})
-    }
+    // _displayEvent = (idFilm) => {
+    //     console.log("Display film with id " + idFilm)
+    //     this.props.navigation.navigate("FilmDetail", {idFilm: idFilm})
+    // }
 
     componentDidMount() {
+        getAsso()
+            .then(data => {
+                this.setState({
+                    asso: data.data
+                })
+                console.log(data.data)
+            })
+        AsyncStorage.getItem('@jwt:key')
+            .then(jwt => {
+            getAssoByUser(jwt).then(data => {
+                this.setState({
+                    assoUser: data.data
+                })
+                console.log(data.data)
+            })
+        })
         getEvent()
             .then((data) => {
                 this.setState({
@@ -58,15 +75,15 @@ export default class Associations extends React.Component {
                     <Text style={styles.otherAssoTitre}>Mes associations</Text>
                     <FlatList
                         horizontal={true}
-                        data={this.state.events}
+                        data={this.state.assoUser}
                         keyExtractor={(item) => item.id.toString()}
-                        renderItem={({item}) => <MyAssoCard event={item} eventDetail={this._displayEvent}/>}
+                        renderItem={({item}) => <MyAssoCard asso={item} eventDetail={this._displayEvent}/>}
                     />
                     <Text style={styles.otherAssoTitre}>Autres associations</Text>
                     <FlatList
-                        data={this.state.events}
+                        data={this.state.asso}
                         keyExtractor={(item) => item.id.toString()}
-                        renderItem={({item}) => <OtherAssoCard event={item} eventDetail={this._displayEvent}/>}
+                        renderItem={({item}) => <OtherAssoCard asso={item} eventDetail={this._displayEvent}/>}
                     />
                 </ScrollView>
             </View>
