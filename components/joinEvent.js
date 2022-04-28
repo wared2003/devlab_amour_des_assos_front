@@ -1,5 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Text,ActivityIndicator, Image, TouchableOpacity } from "react-native";
+import {getEventById, getUrlImage} from "../API/api";
+import moment from "moment";
 // import { getFilmDetailFromApi, getImageFromApi } from "../API/TMDBApi";
 
 class JoinEvent extends React.Component{
@@ -21,56 +23,59 @@ class JoinEvent extends React.Component{
         }
     }
 
-    // componentDidMount(){
-    //     getFilmDetailFromApi(this.props.navigation.getParam('idFilm')).then(data => {
-    //         this.setState({
-    //             film: data,
-    //             isLoading: false
-    //         })
-    //     })
-    // }
+    componentDidMount(){
+        const id = this.props.route.params.params.id
+        console.log(id)
+        getEventById(id).then(data => {
+            console.log(data.data)
+            this.setState({
+                event: data.data,
+                isLoading: false
+            })
+        })
+    }
 
     _displayEvent() {
         // const { film } = this.state
-        // if (film != undefined) {
-            return (
+        const { event } = this.state
+        console.log(event)
+        if (event !== undefined) {
+        return (
                 <View style={styles.view_container}>
                     <Image
                         style={styles.image}
-                        source={require('../assets/img/event.png')}
+                        source={getUrlImage() + "/events/" + event.path}
                     />
                     <View style={styles.text_container}>
-                        <Text style={styles.title_text}>Nom Event</Text>
+                        <Text style={styles.title_text}>{event.name}</Text>
                         <View style={styles.main_information}>
                             <Image style={styles.icon} source={require('../assets/icon/calendar.png')}/>
                             <View style={styles.info}>
-                                <Text style={styles.first_text}>Vendredi 22 octobre 2021</Text>
-                                <Text style={styles.seconde_text}>22H-02H</Text>
+                                <Text style={styles.first_text}>{moment(event.date).locale('fr').format('dddd DD MMMM')}</Text>
+                                <Text style={styles.seconde_text}>{moment(event.date, "YYYY-MM-DDTH:mm").locale('fr').format('H:mm')}</Text>
                             </View>
                         </View>
                         <View style={styles.main_information}>
                             <Image style={styles.icon} source={require('../assets/icon/pin.png')}/>
                             <View style={styles.info}>
-                                <Text style={styles.first_text}>Terminal 7</Text>
-                                <Text style={styles.seconde_text}>1 Pl. de la Prte de Versailles, 75015 Paris</Text>
+                                <Text style={styles.first_text}>{event.namePlace}</Text>
+                                <Text style={styles.seconde_text}>{event.adresse}</Text>
                             </View>
                         </View>
                         <View style={styles.main_information}>
                             <Image style={styles.icon} source={require('../assets/icon/dollars.png')}/>
                             <View style={styles.info}>
-                                <Text style={styles.first_text}>15 €</Text>
+                                <Text style={styles.first_text}>{event.price} €</Text>
                             </View>
                         </View>
                         <View style={styles.main_information}>
                             <Image style={styles.icon} source={require('../assets/icon/people.png')}/>
                             <View style={styles.info}>
-                                <Text style={styles.first_text}>Encore 150 places</Text>
+                                <Text style={styles.first_text}>Place : {event.placeRemaining} / {event.placeNumber}</Text>
                             </View>
                         </View>
                         <Text style={styles.aPropos}>A propos</Text>
-                        <Text style={styles.description_aPropos}>Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Mauris gravida, dolor quis elementum fermentum, augue erat varius metus, sit amet
-                            aliquet lactrequis.</Text>
+                        <Text style={styles.description_aPropos}>{event.description}</Text>
                         <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Home')}>
                             <Text style={styles.text_button}>M'INSCRIRE</Text>
                         </TouchableOpacity>
@@ -78,7 +83,7 @@ class JoinEvent extends React.Component{
                 </View>
             )
 
-        // }
+        }
     }
     
     render() {

@@ -53,21 +53,6 @@ export default class Home extends React.Component {
                     <Text style={styles.headerTitre}>Bienvenue</Text>
                     <SearchEvent/>
                     <EventFilterBtn/>
-                    <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('JoinEvent')}>
-                        <View style={styles.leftPart}>
-                            <Image source={require('../assets/content.png')} style={styles.cardImg}/>
-                            <View style={styles.date}>
-                                <Text style={styles.dateDay}>25</Text>
-                                <Text style={styles.dateMonth}>Nov</Text>
-                            </View>
-                        </View>
-                        <View style={styles.rightPart}>
-                            <Text style={styles.eventTitre}>Titre de l'évenement</Text>
-                            <Text style={styles.eventDescription}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                                dia sadipscing elitr sed dia </Text>
-                            <Text style={styles.eventPrix}>15€</Text>
-                        </View>
-                    </TouchableOpacity>
                     <FlatList
                         data={this.state.events}
                         keyExtractor={(item) => item.id.toString()}
