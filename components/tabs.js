@@ -2,12 +2,11 @@ import * as React from 'react';
 import AddEvent from "./addEvent";
 import JoinEvent from "./joinEvent";
 import Friends from "./Friends";
-import ListMember from "./list-member";
+import Associations from "./associations";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Home from "./home_page";
 import MembreAsso from "./membre_asso";
 import {View, Image, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity,} from 'react-native';
-import login from "./login";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import Login from "./login";
 import Register from "./register";
@@ -85,7 +84,7 @@ const Tabs = () => {
 
                         </View>
                     )}}/>
-                <Tab.Screen name="Friends" component={Friends} options={{headerShown: false,
+                <Tab.Screen name="asso" component={Associations} options={{headerShown: false,
                     tabBarIcon: ({focused}) => (
                         <View>
                             <Image source={require('../assets/people2.png')}
