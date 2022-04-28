@@ -7,7 +7,9 @@ class Register extends React.Component {
         super(props)
         this.state = {
             email: '',
-            username: '',
+            firstName: '',
+            lastName: '',
+            age: '',
             password: '',
             passwordConfirmation: ''
         }
@@ -15,10 +17,13 @@ class Register extends React.Component {
 
     _register(){
         if (this.state.passwordConfirmation === this.state.password){
-            axios.post('http://192.46.237.170:1337/auth/local/register', {
+            axios.post('https://127.0.0.1:8000/api/register', {
                 password: this.state.password,
+                passwordConfirm: this.state.passwordConfirmation,
                 email: this.state.email,
-                username: this.state.username
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                age: this.state.age
             })
                 .then((response) => {
                     console.log(response)
@@ -41,15 +46,29 @@ class Register extends React.Component {
             <SafeAreaView style={styles.form}>
                 <TextInput
                     style={styles.input}
-                    placeholder="Adresse mail"
-                    onChangeText={(email) => this.setState({email})}
-                    value={this.state.email}
+                    placeholder="Prénom"
+                    onChangeText={(firstName) => this.setState({firstName})}
+                    value={this.state.firstName}
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder="Nom d'utilisateur"
-                    onChangeText={(username) => this.setState({username})}
-                    value={this.state.username}
+                    placeholder="Nom"
+                    onChangeText={(lastName) => this.setState({lastName})}
+                    value={this.state.lastName}
+                />
+                <TextInput
+                    keyboardType={"numeric"}
+                    style={styles.input}
+                    placeholder="Age"
+                    maxLength={2}
+                    onChangeText={(age) => this.setState({age})}
+                    value={this.state.age}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Adresse mail"
+                    onChangeText={(email) => this.setState({email})}
+                    value={this.state.email}
                 />
                 <TextInput
                     style={styles.input}
