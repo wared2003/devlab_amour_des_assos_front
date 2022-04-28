@@ -137,7 +137,6 @@ const styles = StyleSheet.create({
     profileSet: {
         flex: 1,
         marginBottom: 24,
-        marginBottom: 24,
         flexDirection: "row",
     },
     leaveImg: {
