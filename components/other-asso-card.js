@@ -14,6 +14,7 @@ class OtherAssoCard extends React.Component {
                 </View>
                 <View style={styles.rightPart}>
                     <Text style={styles.eventTitre}>{asso.name}</Text>
+                    <Text style={styles.eventDescription}>{asso.description}</Text>
                 </View>
             </TouchableOpacity>
         )
