@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
     },
     leftPart: {
         flex: 1,
+        position: 'relative',
     },
     cardImg: {
         borderRadius: 14,
@@ -138,10 +139,10 @@ const styles = StyleSheet.create({
         paddingLeft: 12,
     },
     date: {
-        position: "relative",
+        position: "absolute",
         marginLeft: 'auto',
-        left: 3,
-        bottom: 25,
+        right: 0,
+        bottom: 0,
         height: 32,
         width: 31,
         backgroundColor: '#FBCA6A',
