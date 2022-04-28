@@ -9,8 +9,8 @@ import Login from "./components/login";
 import Register from "./components/register";
 import Friends from "./components/Friends";
 import Associations from "./components/associations";
-
-
+//import Checkout from "./components/checkout";
+import CheckoutScreen from "./components/checkout";
 const Tab = createBottomTabNavigator();
 
 
@@ -28,6 +28,7 @@ function HomeStackScreen() {
             <HomeStack.Screen name="JoinEvent" component={JoinEvent} />
             <HomeStack.Screen name="Friends" component={Friends}/>
             <HomeStack.Screen name="asso" component={Associations}/>
+            {<HomeStack.Screen name="Checkout" component={CheckoutScreen}/>}
         </HomeStack.Navigator>
     );
 }

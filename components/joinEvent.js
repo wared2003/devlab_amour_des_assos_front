@@ -1,5 +1,13 @@
 import React from "react";
 import { StyleSheet, View, Text,ActivityIndicator, Image, TouchableOpacity } from "react-native";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import checkout from "./checkout";
+
+
+import {buyTicket} from "../API/api";
+import * as WebBrowser from "expo-web-browser";
+// import CheckoutScreen from "./checkout";
 // import { getFilmDetailFromApi, getImageFromApi } from "../API/TMDBApi";
 
 class JoinEvent extends React.Component{
@@ -16,9 +24,27 @@ class JoinEvent extends React.Component{
             return(
                 <View style={styles.loading_container}>
                     <ActivityIndicator size='large'/>
+
                 </View>
+
+
             )
         }
+
+    }
+
+    async getTicket(ticketId) {
+        buyTicket()
+            .then((response)=>{
+                if (response.data.needBilling){
+                    let jwt = AsyncStorage.getItem('@jwt:key')
+                    jwt.then(async (res) => {
+                        let result = await WebBrowser.openBrowserAsync(`http://stripe-devlab.vercel.app?jwt=${res}&paymentIntent=${response.data.stripe.paymentIntent}&publishableKey=${response.data.stripe.publishableKey&success=false}`);
+                    })
+                }else{
+
+                }
+            })
     }
 
     // componentDidMount(){
@@ -71,7 +97,7 @@ class JoinEvent extends React.Component{
                         <Text style={styles.description_aPropos}>Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit. Mauris gravida, dolor quis elementum fermentum, augue erat varius metus, sit amet
                             aliquet lactrequis.</Text>
-                        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Home')}>
+                        <TouchableOpacity style={styles.button} onPress={() => {this.getTicket()}} >
                             <Text style={styles.text_button}>M'INSCRIRE</Text>
                         </TouchableOpacity>
                     </View>
@@ -86,6 +112,7 @@ class JoinEvent extends React.Component{
             <View style={styles.main_container}>
                 {this._displayLoading()}
                 {this._displayEvent()}
+
             </View>
         )
     }
