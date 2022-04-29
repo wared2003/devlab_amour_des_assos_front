@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, useState,  Image, StyleSheet, TouchableHighlight} from 'react-native';
+import {View, Text, TouchableOpacity, useState, Image, StyleSheet, TouchableHighlight, Pressable} from 'react-native';
 import {getCategory} from '../API/api'
 
 class EventFilterBtn extends React.Component {
@@ -27,22 +27,59 @@ class EventFilterBtn extends React.Component {
         return (
 
             <View style={styles.btnsWrap}>
-                <TouchableOpacity style={styles.btn}>
-                    <Image source={require('../assets/art.png')} style={styles.btnImg}/>
-                    <Text style={styles.btnTxt}>Soirées</Text>
-                </TouchableOpacity>
-                <View style={styles.btn}>
-                    <Image source={require('../assets/alter.png')} style={styles.btnImg}/>
-                    <Text style={styles.btnTxt}>Sport</Text>
-                </View>
-                <View style={styles.btn}>
-                    <Image source={require('../assets/work.png')} style={styles.btnImg}/>
-                    <Text style={styles.btnTxt}>Business</Text>
-                </View>
-                <View style={styles.btn}>
-                    <Image source={require('../assets/culture.png')} style={styles.btnImg}/>
-                    <Text style={styles.btnTxt}>Culture</Text>
-                </View>
+                {/*<TouchableOpacity style={styles.btn}>*/}
+                {/*    <Image source={require('../assets/art.png')} style={styles.btnImg}/>*/}
+                {/*    <Text style={styles.btnTxt}>Soirées</Text>*/}
+                {/*</TouchableOpacity>*/}
+                <Pressable onPress={() => {
+                    let category =  console.log(this.category[0].name)
+                    console.log(this.category)
+
+                }}
+                           style={({ focused }) => [{ borderColor: focused ? '#414BCD' : '#E0E1EB' }, styles.btn ]}>
+                    {({ pressed }) => (
+                        <View>
+                            <Image source={require('../assets/alter.png')} style={styles.btnImg}/>
+                            <Text style={styles.btnTxt}>Soirée</Text>
+                        </View>
+                    )}
+                </Pressable>
+                <Pressable onPress={() => {
+                    console.log(this.category[1].name)
+                }} style={({ focused }) => [{ borderColor: focused ? '#414BCD' : '#E0E1EB' }, styles.btn ]}>
+                    {({ pressed }) => (
+                        <View>
+                            <Image source={require('../assets/alter.png')} style={styles.btnImg}/>
+                            <Text style={styles.btnTxt}>Sport</Text>
+                        </View>
+                    )}
+                </Pressable>
+                <Pressable onPress={() => {
+                    console.log(this.category[2].name)
+                }}  style={({ focused }) => [{ borderColor: focused ? '#414BCD' : '#E0E1EB' }, styles.btn ]}>
+                    {({ pressed }) => (
+
+                        <View>
+                            <Image source={require('../assets/alter.png')} style={styles.btnImg}/>
+                            <Text style={styles.btnTxt}>Buisness</Text>
+                        </View>
+
+
+                    )}
+                </Pressable>
+                <Pressable onPress={() => {
+                    console.log(this.category[3].name)
+                }} style={({ focused }) => [{ borderColor: focused ? '#414BCD' : '#E0E1EB' }, styles.btn ]}>
+                    {({ pressed }) => (
+
+                        <View>
+                            <Image source={require('../assets/culture.png')} style={styles.btnImg}/>
+                            <Text style={styles.btnTxt}>Culture</Text>
+                        </View>
+
+                    )}
+                </Pressable>
+
 
             </View>
         );
@@ -51,10 +88,10 @@ class EventFilterBtn extends React.Component {
 
 const styles = StyleSheet.create({
     btnsWrap:{
-      display: "flex",
-      justifyContent: 'space-between',
-      flexDirection: "row",
-      marginBottom: 24,
+        display: "flex",
+        justifyContent: 'space-between',
+        flexDirection: "row",
+        marginBottom: 24,
     },
     btn: {
         height: 67,
@@ -62,7 +99,7 @@ const styles = StyleSheet.create({
         //backgroundColor: '#E0E1EB',
         borderRadius: 10,
         borderWidth : 2,
-        borderColor : '#E0E1EB',
+        // borderColor : '#E0E1EB',
     },
     btnTxt: {
         fontSize: 12,

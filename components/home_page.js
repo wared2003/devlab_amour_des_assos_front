@@ -6,13 +6,14 @@ import JoinEvent from "./joinEvent";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {getCategory, getEvent} from "../API/api";
 import EventCard from "./event-card";
-
+import event_filter_btn from "./event_filter_btn";
 
 export default class Home extends React.Component {
 
     constructor(props){
         super(props)
         this.state = {
+
             events: [],
             isLoading: false //no loading by default
         }
