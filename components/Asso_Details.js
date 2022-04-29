@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         borderRadius: 128,
     },
     assoName: {
-        fontWeight: 600,
+        fontWeight: "600",
         color: '#14151F',
         fontSize: 24,
         lineHeight: 32.68,
@@ -77,13 +77,13 @@ const styles = StyleSheet.create({
         marginBottom: 32,
     },
     assoDesc: {
-        fontWeight: 400,
+        fontWeight: "400",
         color: '#A3A5C2',
         fontSize: 16,
         lineHeight: 21.79,
     },
     AssoDetailsEvents: {
-        fontWeight: 400,
+        fontWeight: "400",
         color: '#14151F',
         fontSize: 16,
         lineHeight: 21.79,

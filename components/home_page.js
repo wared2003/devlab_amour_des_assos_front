@@ -4,6 +4,7 @@ import SearchEvent from "./search-event";
 import {StyleSheet, View, ScrollView, Image, Text, TouchableOpacity, FlatList} from 'react-native'
 import JoinEvent from "./joinEvent";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as WebBrowser from 'expo-web-browser';
 import {getCategory, getEvent} from "../API/api";
 import EventCard from "./event-card";
 
@@ -33,6 +34,13 @@ export default class Home extends React.Component {
         this.props.navigation.navigate("JoinEvent")
     }
 
+    _handlePressButtonAsync = async () => {
+        let jwt = AsyncStorage.getItem('@jwt:key')
+        jwt.then(async res => {
+            let result = await WebBrowser.openBrowserAsync('http://localhost:3000/?jwt=' + res);
+        })
+
+    }
     componentDidMount() {
         getEvent()
             .then((data)=>{
@@ -52,7 +60,9 @@ export default class Home extends React.Component {
                 <ScrollView style={styles.body}>
                     <Text style={styles.headerTitre}>Bienvenue</Text>
                     <SearchEvent/>
-                    <EventFilterBtn/>
+                    <TouchableOpacity style={styles.button} onPress={this._handlePressButtonAsync}>
+                        <Text style={styles.text_button}>AJOUTER UN EVENT</Text>
+                    </TouchableOpacity>
                     <FlatList
                         data={this.state.events}
                         keyExtractor={(item) => item.id.toString()}
@@ -166,4 +176,22 @@ const styles = StyleSheet.create({
         color: '#232A85',
         fontSize: 14,
     },
+
+    button: {
+        width: '90%',
+        paddingVertical: 10,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginVertical: 12,
+        backgroundColor: '#414BCD',
+        borderRadius: 20,
+        bottom: 0,
+    },
+
+    text_button: {
+        color: '#FFFFFF',
+        fontWeight: '600',
+        fontSize: 16,
+        textAlign: "center",
+    }
 })

@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
-import {StyleSheet, View, Text, Image, TextInput, ScrollView, Button, TouchableOpacity} from "react-native";
-import CustomTextInput from "./TextInput";
+import React, {useState } from 'react'
+import {StyleSheet, View, Text, Image, TextInput, ScrollView, Button, TouchableOpacity, Platform} from "react-native";
+import DateTimePicker from '@react-native-community/datetimepicker';
 import EventFilterBtn from "./event_filter_btn";
+import * as ImagePicker from 'expo-image-picker';
 import CustomButton from "./button";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -9,6 +10,40 @@ import * as WebBrowser from 'expo-web-browser';
 
 class AddEvent extends React.Component{
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            isPickerShow: false,
+            date: new Date(),
+            image: null
+        }
+    }
+    showPicker(){
+        this.setState({isPickerShow: true})
+    }
+
+    onChange(value){
+        console.log(value)
+        console.log('value')
+        this.setState({date: value})
+        if (Platform.OS === 'android') {
+            this.setState({isPickerShow: false})
+        }
+    }
+    async pickImage(){
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+        this.setState({result})
+        if (!result.cancelled) {
+            console.log('this.state.image')
+            this.setState({image: result.uri});
+        }
+    }
     // _uploadImage(e){
     //     e.preventDefault()
     //     const formData = new FormData()
@@ -31,14 +66,6 @@ class AddEvent extends React.Component{
     //     })
     // }
 
-    _handlePressButtonAsync = async () => {
-        let jwt = AsyncStorage.getItem('@jwt:key')
-        jwt.then(async res => {
-            let result = await WebBrowser.openBrowserAsync('http://devlab.edgar-lecomte.fr/?jwt=' + res);
-        })
-        // console.log(result)
-    };
-
     render() {
         return(
             <View style={styles.view_container}>
@@ -50,14 +77,19 @@ class AddEvent extends React.Component{
                     <TouchableOpacity style={styles.image_btn}>
                         <Text style={styles.image_btn_txt}>Ajouter une image</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.back_btn}>
-                        <Image
-                            style={styles.back_icon}
-                            source={require('../assets/action.png')}
-                        />
-                    </TouchableOpacity>
+                    {/*<TouchableOpacity style={styles.back_btn}>*/}
+                    {/*    <Image*/}
+                    {/*        style={styles.back_icon}*/}
+                    {/*        source={require('../assets/action.png')}*/}
+                    {/*    />*/}
+                    {/*</TouchableOpacity>*/}
                 </View>
                 <View style={styles.text_container}>
+                <Button title="Pick an image from camera roll" onPress={this.pickImage} />
+                <Button title="get image" onPress={() => {
+                    console.log(this.state.image)
+                }} />
+                    <Image source={{ uri: this.state.image }} style={{ width: 200, height: 200 }} />
                     <ScrollView>
                     <View style={styles.name}>
                         <TextInput
@@ -88,7 +120,6 @@ class AddEvent extends React.Component{
                             <TextInput
                                 style={styles.input_add_event}
                                 placeholder="Adresse"
-                                keyboardType="numeric"
                             />
                         </View>
                         <View style={styles.main_information}>
@@ -113,13 +144,35 @@ class AddEvent extends React.Component{
                         <TextInput
                             style={[styles.input_add_event, styles.input_desc_event ]}
                             placeholder="Description"
-                            keyboardType="numeric"
+                            multiline={true}
                         />
                     </View>
                     <View style={styles.section}>
                         <Text style={styles.aPropos}>Catégories</Text>
                         <EventFilterBtn/>
                     </View>
+                        <View>
+                            {/* The button that used to trigger the date picker */}
+                            {!this.state.isPickerShow && (
+                                <View style={styles.btnContainer}>
+                                    <Button title="Show Picker" color="purple" onPress={this.showPicker()} />
+                                </View>
+                            )}
+
+                            {/* The date picker */}
+                            {this.state.isPickerShow && (
+                                <DateTimePicker
+                                    minimumDate={new Date()}
+                                    value={this.state.date}
+                                    mode={'datetime'}
+                                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                                    is24Hour={true}
+                                    onChange={(event, date) => {
+                                        this.setState({...this.state.date, ['date']: date});
+                                    }}
+                                />
+                            )}
+                        </View>
                     <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Home')}>
                         <Text style={styles.text_button}>AJOUTER</Text>
                     </TouchableOpacity>
