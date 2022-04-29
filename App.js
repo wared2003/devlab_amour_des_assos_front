@@ -9,6 +9,7 @@ import Login from "./components/login";
 import Register from "./components/register";
 import Friends from "./components/Friends";
 import Associations from "./components/associations";
+import Timer from "./components/localNotifications";
 //import Checkout from "./components/checkout";
 import CheckoutScreen from "./components/checkout";
 const Tab = createBottomTabNavigator();
@@ -29,6 +30,7 @@ function HomeStackScreen() {
             <HomeStack.Screen name="Friends" component={Friends}/>
             <HomeStack.Screen name="asso" component={Associations}/>
             {<HomeStack.Screen name="Checkout" component={CheckoutScreen}/>}
+            {<HomeStack.Screen name="Timer" component={Timer}/>}
         </HomeStack.Navigator>
     );
 }
@@ -46,6 +48,7 @@ const Navigation = () => {
                 <Tab.Screen name="Home" component={HomeStackScreen} options={{headerShown: false}}/>
                 <Tab.Screen name="Associations" component={Associations} options={{headerShown: false}}/>
                 <Tab.Screen name="addEvent" component={AddEvent} options={{headerShown: false}}/>
+                <Tab.Screen name="timer" component={Timer} options={{headerShown: false}}/>
             </Tab.Navigator>
         </NavigationContainer>
     );

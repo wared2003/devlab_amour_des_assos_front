@@ -3,6 +3,8 @@ import { StyleSheet, View, Text,ActivityIndicator, Image, TouchableOpacity } fro
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import checkout from "./checkout";
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
 
 
 import {buyTicket} from "../API/api";
@@ -39,12 +41,28 @@ class JoinEvent extends React.Component{
                 if (response.data.needBilling){
                     let jwt = AsyncStorage.getItem('@jwt:key')
                     jwt.then(async (res) => {
-                        let result = await WebBrowser.openBrowserAsync(`http://stripe-devlab.vercel.app?jwt=${res}&paymentIntent=${response.data.stripe.paymentIntent}&publishableKey=${response.data.stripe.publishableKey&success=false}`);
+                        let result = await WebBrowser.openBrowserAsync(`http://stripe-devlab.vercel.app?jwt=${res}&paymentIntent=${response.data.stripe.paymentIntent}&publishableKey=${response.data.stripe.publishableKey}&success=false`);
+
                     })
                 }else{
 
                 }
             })
+    }
+
+
+
+
+
+    const triggerNotifications = async () => {
+        await Notifications.scheduleNotificationAsync({
+            content: {
+                title: “You’ve got mail! 📬”,
+        body: ‘Here is the notification body’,
+        data: { data: ‘goes here’ },
+    },
+        trigger: { seconds: 2 },
+    });
     }
 
     // componentDidMount(){
