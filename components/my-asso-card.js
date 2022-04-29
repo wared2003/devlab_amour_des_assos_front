@@ -6,9 +6,11 @@ import moment from "moment";
 class MyAssoCard extends React.Component {
 
     render() {
-        const {asso, eventDetail} = this.props
+        const {asso, assoDetail} = this.props
         return (
-            <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Event', {id: asso.id})}>
+            <TouchableOpacity style={styles.card} onPress={() => assoDetail.navigation.navigate('AssoDetail', {
+                params: { id: asso.id}
+            })}>
                 <View style={styles.imgContainer}>
                     <Image source={getUrlImage() + '/assos/' + asso.logo} style={styles.cardImg}/>
                 </View>

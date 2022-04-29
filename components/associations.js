@@ -77,13 +77,13 @@ export default class Associations extends React.Component {
                         horizontal={true}
                         data={this.state.assoUser}
                         keyExtractor={(item) => item.id.toString()}
-                        renderItem={({item}) => <MyAssoCard asso={item} eventDetail={this._displayEvent}/>}
+                        renderItem={({item}) => <MyAssoCard asso={item} assoDetail={this.props}/>}
                     />
                     <Text style={styles.otherAssoTitre}>Autres associations</Text>
                     <FlatList
                         data={this.state.asso}
                         keyExtractor={(item) => item.id.toString()}
-                        renderItem={({item}) => <OtherAssoCard asso={item} eventDetail={this._displayEvent}/>}
+                        renderItem={({item}) => <OtherAssoCard asso={item} assoDetail={this.props}/>}
                     />
                 </ScrollView>
             </View>

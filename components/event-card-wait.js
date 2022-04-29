@@ -1,19 +1,22 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import moment from "moment";
-import {getUrl} from "../API/api";
+import {getUrl, getUrlImage} from "../API/api";
 
 class EventCard extends React.Component {
 
     render() {
         const {event, eventDetail} = this.props
         return (
-            <TouchableOpacity style={styles.card} onPress={() => eventDetail.navigation.navigate('JoinEvent')}>
+            <TouchableOpacity style={styles.card}
+                              onPress={() => eventDetail.navigation.navigate('JoinEvent', {
+                                  params: { id: event.id}
+                              })}>
                 <View style={styles.leftPart}>
-                    <Image source={getUrl() + event.ImageLink} style={styles.cardImg}/>
+                    <Image source={getUrlImage() + "/events/" + event.path} style={styles.cardImg}/>
                     <View style={styles.date}>
-                        <Text style={styles.dateDay}>{moment(event.Date_and_time).locale('fr').format('DD')}</Text>
-                        <Text style={styles.dateMonth}>{moment(event.Date_and_time).locale('fr').format('MMM')}</Text>
+                        <Text style={styles.dateDay}>{moment(event.date).locale('fr').format('DD')}</Text>
+                        <Text style={styles.dateMonth}>{moment(event.date).locale('fr').format('MMM')}</Text>
                     </View>
                 </View>
                 <View style={styles.rightPart}>

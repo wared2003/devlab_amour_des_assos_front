@@ -40,6 +40,16 @@ export function getEventById(id){
         })
 }
 
+export function getEventByAssociation(id){
+    return axios.get(url + '/events/association/' + id)
+        .then((response)=>{
+            return response
+        })
+        .catch((e)=>{
+            console.error(e)
+        })
+}
+
 export function getAssoByUser(jwt){
     return axios.get(url + '/associations/me', {
         headers: {
@@ -56,6 +66,16 @@ export function getAssoByUser(jwt){
 
 export function getAsso(){
     return axios.get(url + '/associations')
+        .then((response)=>{
+            return response
+        })
+        .catch((e)=>{
+            console.error(e)
+        })
+}
+
+export function getAssoById(id){
+    return axios.get(url + '/associations/' + id)
         .then((response)=>{
             return response
         })

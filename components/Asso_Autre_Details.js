@@ -6,33 +6,59 @@ import CustomButton from "./button";
 import EventCard from "./event-card";
 import Button from "./button";
 import EventCardWait from "./event-card-wait";
-class Profile extends React.Component{
+import {getAssoById, getEventByAssociation, getUrlImage} from "../API/api";
+class AssoDetail extends React.Component{
 
     constructor(props){
         super(props)
         this.state = {
             events: [],
+            asso: [],
             isLoading: false //no loading by default
         }
     }
+
+    componentDidMount(){
+        const id = this.props.route.params.params.id
+        console.log(id)
+        getAssoById(id).then(data => {
+            console.log(data.data)
+            this.setState({
+                asso: data.data,
+                isLoading: false
+            })
+        })
+        getEventByAssociation(id).then(data => {
+            console.log(data.data)
+            this.setState({
+                events: data.data,
+                isLoading: false
+            })
+        })
+    }
+
     render() {
 
+        const { asso } = this.state
+        let count = 0
+        for (let key in this.state.asso['users']){
+            count++
+        }
         return(
             <ScrollView style={styles.scrollView}>
-                <Image
-                    style={styles.returnBackImg}
-                    source={require('../assets/icon/arrow_back.png')}
-                    accessibilityLabel={'arrow\'s icon'}
-                />
+                {/*<Image*/}
+                {/*    style={styles.returnBackImg}*/}
+                {/*    source={require('../assets/icon/arrow_back.png')}*/}
+                {/*    accessibilityLabel={'arrow\'s icon'}*/}
+                {/*/>*/}
                 <View style={styles.AssoAutreDetailsHeader}>
                     <Image
                         style={styles.assoImg}
-                        source={require('../assets/img/asso.jpg')}
+                        source={getUrlImage() + '/assos/' + asso.logo}
                         accessibilityLabel={'asso\'s logo'}
                     />
-                    <Text style={styles.assoName}>IIMPACT</Text> {/*Asso's name*/}
-                    <Text style={styles.assoDesc}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus cumque eos facilis optio porro unde vel, vero voluptate voluptatibus.
-                        Corporis eius fuga hic ipsam, labore modi nobis repellat sit voluptas?</Text> {/*Asso's desc*/}
+                    <Text style={styles.assoName}>{asso.name}</Text> {/*Asso's name*/}
+                    <Text style={styles.assoDesc}>{asso.description}</Text> {/*Asso's desc*/}
                 </View>
                 <View>
                     <Text style={styles.AssoAutreDetailsMembres}>Membres</Text> {/*meme partie que dans profile*/}
@@ -58,11 +84,10 @@ class Profile extends React.Component{
                             accessibilityLabel={'asso\'s logo'}
                         />
                         <View style={styles.membersNumber}>
-                            <text stylme={styles.membersNumberText}>+8</text>
+                            <Text style={styles.membersNumberText}>+{count}</Text>
                         </View>
                     </View>
                     <Text style={styles.AssoAutreDetailsEvents}>Événements à venir</Text> {/*meme partie que dans profile*/}
-                    <EventCardWait/>
                     <FlatList
                         data={this.state.events}
                         keyExtractor={(item) => item.id.toString()}
@@ -191,4 +216,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Profile
+export default AssoDetail

@@ -11,6 +11,7 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import Login from "./login";
 import Register from "./register";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import AssoDetail from "./Asso_Autre_Details";
 
 function checkJwt(){
     AsyncStorage.getItem('@jwt:key').then(jwt => {
@@ -27,7 +28,7 @@ function HomeStackScreen() {
                 <HomeStack.Screen name="Login" component={Login}/>
             ) : (null)}
             <HomeStack.Screen name="JoinEvent" component={JoinEvent}/>
-            <HomeStack.Screen name="Friends" component={Friends}/>
+            <HomeStack.Screen name="AssoDetail" component={AssoDetail}/>
             <HomeStack.Screen name="Register" component={Register}/>
         </HomeStack.Navigator>
     );
