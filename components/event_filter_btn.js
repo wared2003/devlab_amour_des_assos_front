@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, useState,  Image, StyleSheet, TouchableHighlight} from 'react-native';
 import {getCategory} from '../API/api'
 
 class EventFilterBtn extends React.Component {
@@ -8,6 +8,8 @@ class EventFilterBtn extends React.Component {
         super(props)
         this.category = []
     }
+
+
 
     componentDidMount() {
         getCategory()
@@ -20,23 +22,26 @@ class EventFilterBtn extends React.Component {
     }
 
     render() {
+
+
         return (
+
             <View style={styles.btnsWrap}>
-                <View style={styles.btnActive}>
+                <TouchableOpacity style={styles.btn}>
                     <Image source={require('../assets/art.png')} style={styles.btnImg}/>
-                    <Text style={styles.btnTxtActive}>Sport</Text>
-                </View>
+                    <Text style={styles.btnTxt}>Soirées</Text>
+                </TouchableOpacity>
                 <View style={styles.btn}>
                     <Image source={require('../assets/alter.png')} style={styles.btnImg}/>
                     <Text style={styles.btnTxt}>Sport</Text>
                 </View>
                 <View style={styles.btn}>
                     <Image source={require('../assets/work.png')} style={styles.btnImg}/>
-                    <Text style={styles.btnTxt}>Sport</Text>
+                    <Text style={styles.btnTxt}>Business</Text>
                 </View>
                 <View style={styles.btn}>
                     <Image source={require('../assets/culture.png')} style={styles.btnImg}/>
-                    <Text style={styles.btnTxt}>Sport</Text>
+                    <Text style={styles.btnTxt}>Culture</Text>
                 </View>
 
             </View>
@@ -50,20 +55,21 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       flexDirection: "row",
       marginBottom: 24,
-
     },
     btn: {
         height: 67,
         width: 67,
-        backgroundColor: '#E0E1EB',
+        //backgroundColor: '#E0E1EB',
         borderRadius: 10,
-
+        borderWidth : 2,
+        borderColor : '#E0E1EB',
     },
     btnTxt: {
         fontSize: 12,
         marginLeft: 'auto',
         marginRight: 'auto',
         marginTop: 5,
+        color: '#14151F',
     },
     btnImg: {
         height: 25,
@@ -76,17 +82,19 @@ const styles = StyleSheet.create({
         height: 67,
         width: 67,
         borderRadius: 10,
-        backgroundColor: '#414BCD',
-        color: '#ffffff',
+        borderColor: '#414BCD',
+        borderWidth: 2,
     },
     btnTxtActive: {
         fontSize: 12,
-        color: '#ffffff',
+        color: '#414BCD',
         marginLeft: 'auto',
         marginRight: 'auto',
         marginTop: 5,
     },
 })
+
+
 
 
 export default EventFilterBtn;

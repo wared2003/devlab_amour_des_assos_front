@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {StyleSheet, View, Text, Image, TextInput, ScrollView, Button} from "react-native";
+import {StyleSheet, View, Text, Image, TextInput, ScrollView, Button, TouchableOpacity} from "react-native";
 import CustomTextInput from "./TextInput";
 import EventFilterBtn from "./event_filter_btn";
 import CustomButton from "./button";
@@ -41,137 +41,239 @@ class AddEvent extends React.Component{
 
     render() {
         return(
-            <ScrollView>
-                <View style={styles.main_container}>
-                        <View style={styles.formWrapper}>
-                    <Button title="Open WebBrowser" onPress={this._handlePressButtonAsync} />
-                        <View style={styles.name}>
-                            <CustomTextInput placeHolder={"Nom de l'évent"} nom={'name'}/>
-                        </View>
-
-                        <View style={styles.inputWrap}>
-                            <Image source={require('../assets/icon/pin.png')} style={styles.InputIcon} />
-                            <View style={styles.placeInput}>
-                                <CustomTextInput placeHolder={'Lieux'}></CustomTextInput>
-                            </View>
-                        </View>
-                        <View style={styles.inputWrap}>
-                            <Image source={require('../assets/icon/people.png')} style={styles.InputIcon} />
-                            <View style={styles.placesInput}>
-                                <CustomTextInput placeHolder={'Places Disponibles'}></CustomTextInput>
-                            </View>
-                        </View>
-                        <View style={styles.inputWrap}>
-                            <Image source={require('../assets/icon/calendar.png')} style={styles.InputIcon} />
-                            <View style={styles.dateInput}>
-                                <CustomTextInput placeHolder={'JJ/MM/AAAA'}></CustomTextInput>
-                            </View>
-                        </View>
-                        <View style={styles.inputWrap}>
-                            <Image source={require('../assets/icon/dollars.png')} style={styles.InputIcon} />
-                            <View style={styles.priceInput}>
-                                <CustomTextInput placeHolder={'Prix'}></CustomTextInput>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.about}>
-                        <Text style={styles.blackTitle}>A propos</Text>
-                        <TextInput style={styles.eventDescriptionInput} placeholder={'Description'}></TextInput>
-                    </View>
-                    <View style={styles.categories}>
-                        <Text style={styles.blackTitle}>Categories</Text>
-                            <EventFilterBtn/>
-                    </View>
+            <View style={styles.view_container}>
+                <View style={styles.image_container}>
+                    <Image
+                        style={styles.image}
+                        source={require('../assets/img/event.png')}
+                    />
+                    <TouchableOpacity style={styles.image_btn}>
+                        <Text style={styles.image_btn_txt}>Ajouter une image</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.back_btn}>
+                        <Image
+                            style={styles.back_icon}
+                            source={require('../assets/action.png')}
+                        />
+                    </TouchableOpacity>
                 </View>
-                <View style={styles.submitBtn}>
-                    <CustomButton title={'AJOUTER'}/>
-                </View>
-            </ScrollView>
-
-        );
+                <View style={styles.text_container}>
+                    <ScrollView>
+                    <View style={styles.name}>
+                        <TextInput
+                            style={styles.input_add_event}
+                            placeholder="Nom de l'event"
+                            keyboardType="numeric"
+                        />
+                    </View>
+                    <View>
+                        <View style={styles.main_information}>
+                            <Image source={require('../assets/icon/calendar.png')} style={styles.icon} />
+                            <TextInput
+                                style={styles.input_add_event}
+                                placeholder="Ajouter"
+                                keyboardType="numeric"
+                            />
+                        </View>
+                        <View style={styles.main_information}>
+                            <Image source={require('../assets/icon/pin.png')} style={styles.icon} />
+                            <TextInput
+                                style={styles.input_add_event}
+                                placeholder="Place"
+                                keyboardType="numeric"
+                            />
+                        </View>
+                        <View style={styles.main_information}>
+                            <Image source={require('../assets/icon/pin.png')} style={styles.icon} />
+                            <TextInput
+                                style={styles.input_add_event}
+                                placeholder="Adresse"
+                                keyboardType="numeric"
+                            />
+                        </View>
+                        <View style={styles.main_information}>
+                            <Image source={require('../assets/icon/dollars.png')} style={styles.icon} />
+                            <TextInput
+                                style={styles.input_add_event}
+                                placeholder="Prix"
+                                keyboardType="numeric"
+                            />
+                        </View>
+                        <View style={styles.main_information}>
+                            <Image source={require('../assets/icon/people.png')} style={styles.icon} />
+                            <TextInput
+                                style={styles.input_add_event}
+                                placeholder="Nombre participant"
+                                keyboardType="numeric"
+                            />
+                        </View>
+                    </View>
+                    <View style={styles.section}>
+                        <Text style={styles.aPropos}>A propos</Text>
+                        <TextInput
+                            style={[styles.input_add_event, styles.input_desc_event ]}
+                            placeholder="Description"
+                            keyboardType="numeric"
+                        />
+                    </View>
+                    <View style={styles.section}>
+                        <Text style={styles.aPropos}>Catégories</Text>
+                        <EventFilterBtn/>
+                    </View>
+                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Home')}>
+                        <Text style={styles.text_button}>AJOUTER</Text>
+                    </TouchableOpacity>
+                </ScrollView>
+            </View>
+            </View>
+        )
     }
 }
 const styles = StyleSheet.create({
     main_container: {
         flex: 1,
     },
-    formWrapper: {
-        flex: 1,
-        padding: 32,
-    },
-    eventImg: {
+    input_add_event: {
+        paddingLeft: 13,
+        backgroundColor: '#ffffff',
+        height: 36,
         width: '100%',
-        height: 200
-    },
-    eventName: {
-        width: 'auto',
-    },
-    dateInput:{
-        width: 145,
-    },
-    priceInput:{
-        width: 90,
-    },
-    contactInput:{
-        width: 145,
-    },
-    placesInput:{
-        width: 180,
-    },
-
-    InputIcon:{
-        height: 45,
-        width: 45,
-        marginTop: 6,
-        marginRight: 16,
-    },
-    inputWrap:{
+        justifyContent: "flex-start",
         flexDirection: "row",
-    },
-    about:{
-        padding: 24,
-    },
-    eventDescriptionInput:{
-            borderRadius: 25,
-            paddingLeft: 15,
-            backgroundColor: '#ffffff',
-            height: 136,
-            width: 'auto',
-            justifyContent: "flex-start",
-            marginBottom: 24,
-            flexDirection: "row",
-            alignItems: "center",
-
-            shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-
-            elevation: 5,
-            borderColor: "#EEEEEE",
-            borderWidth: 1,
+        alignItems: "center",
+        fontSize: 14,
+        borderTopLeftRadius: 3,
+        borderTopRightRadius: 3,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
         },
-    blackTitle:{
-        fontWeight: "700",
-        color: '#000000',
-        fontSize: 24,
-        marginLeft: 16,
-        marginBottom: 8,
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
     },
-    categories:{
+    input_desc_event: {
+        height: 85,
+    },
+    image_btn : {
+        elevation: 99,
+        color: "white",
+        borderWidth: 3,
+        borderColor: 'white',
+        borderRadius: 10,
+        paddingVertical: 9,
+        paddingHorizontal: 13,
+        position: 'absolute',
+        alignSelf: 'center',
+        marginVertical: 0,
+        top: '50%',
+        transform: [{translateY: '-50%'}]
+    },
+    back_btn : {
+        elevation: 99,
+        position: 'absolute',
+    },
+    back_icon : {
+        width: 48,
+        height: 48,
+    },
+    image_btn_txt : {
+        color: "white",
+        fontSize: 16,
+    },
+    loading_container: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    view_container: {
+        flex: 1,
+    },
+    image_container: {
+
+    },
+    image: {
+        height: 240,
+        margin: 0,
+    },
+
+    text_container: {
+        position: "absolute",
+        top: 220,
+        bottom: 0,
+        right: 0,
+        left: 0,
         paddingLeft: 24,
         paddingRight: 24,
+        backgroundColor: '#FAFAFA',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        color: '#14151F',
+        justifyContent: "space-around",
+        paddingTop: 17,
     },
-    submitBtn:{
-        width: '75%',
+    title_text: {
+        // fontFamily: 'Open Sans',
+        fontWeight: '600',
+        fontSize: 24,
+        flexWrap: 'wrap',
+        marginTop: 16,
+        marginBottom: 24,
+        textAlign: 'left',
+    },
+    main_information: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: 18,
+    },
+
+    first_text:{
+        fontSize: 16,
+        lineHeight: 22,
+    },
+    icon: {
+        width: 40,
+        height: 40,
+        marginRight:14,
+    },
+
+    aPropos: {
+        fontWeight: '700',
+        fontSize: 16,
+        lineHeight: 22,
+        marginBottom: 13,
+        marginTop: 20,
+    },
+
+    description_aPropos: {
+        fontWeight: '400',
+        fontSize: 16,
+        lineHeight: 22
+    },
+
+    button: {
+        width: '90%',
+        paddingVertical: 10,
         marginLeft: 'auto',
         marginRight: 'auto',
-        borderRadius: 54,
-        marginBottom: 24,
+        marginVertical: 24,
+        backgroundColor: '#414BCD',
+        borderRadius: 20,
+        bottom: 0,
+    },
+
+    text_button: {
+        color: '#FFFFFF',
+        fontWeight: '600',
+        fontSize: 16,
+        textAlign: "center",
     }
+
 
 })
 
