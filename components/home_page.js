@@ -5,7 +5,7 @@ import {StyleSheet, View, ScrollView, Image, Text, TouchableOpacity, FlatList} f
 import JoinEvent from "./joinEvent";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as WebBrowser from 'expo-web-browser';
-import {getCategory, getEvent} from "../API/api";
+import {getCategory, getEvent, getMe, getMyEvents} from "../API/api";
 import EventCard from "./event-card";
 
 
@@ -15,6 +15,8 @@ export default class Home extends React.Component {
         super(props)
         this.state = {
             events: [],
+            user:[],
+            log: false,
             isLoading: false //no loading by default
         }
     }
@@ -60,9 +62,9 @@ export default class Home extends React.Component {
                 <ScrollView style={styles.body}>
                     <Text style={styles.headerTitre}>Bienvenue</Text>
                     <SearchEvent/>
-                    <TouchableOpacity style={styles.button} onPress={this._handlePressButtonAsync}>
+                    {this.state.user.associationOffice != null ? <TouchableOpacity style={styles.button} onPress={this._handlePressButtonAsync}>
                         <Text style={styles.text_button}>AJOUTER UN EVENT</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> : false}
                     <FlatList
                         data={this.state.events}
                         keyExtractor={(item) => item.id.toString()}
@@ -79,6 +81,17 @@ export default class Home extends React.Component {
                 console.log(jwt)
             if (jwt === 'undefined' || jwt === null){
                 this.props.navigation.navigate('Login')
+            }
+            else {
+                if (!this.state.log){
+                    getMe(jwt).then(data => {
+                        this.setState({
+                            user: data.data
+                        })
+                        console.log(data.data)
+                    })
+                    this.setState({log: true})
+                }
             }
         })
         return this._homepage()

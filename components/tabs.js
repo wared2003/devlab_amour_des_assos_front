@@ -12,6 +12,7 @@ import Login from "./login";
 import Register from "./register";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AssoDetail from "./Asso_Autre_Details";
+import Profile from "./Profile";
 
 function checkJwt(){
     AsyncStorage.getItem('@jwt:key').then(jwt => {
@@ -25,7 +26,7 @@ function HomeStackScreen() {
         <HomeStack.Navigator>
             <HomeStack.Screen name="Home" component={Home} options={{headerShown: false}}/>
             {checkJwt ? (
-                <HomeStack.Screen name="Login" component={Login}/>
+                <HomeStack.Screen name="Login" component={Login} options={{headerShown: false}}/>
             ) : (null)}
             <HomeStack.Screen name="JoinEvent" component={JoinEvent}/>
             <HomeStack.Screen name="AssoDetail" component={AssoDetail}/>
@@ -72,19 +73,6 @@ const Tabs = () => {
 
                         </View>
                     )}}/>
-                <Tab.Screen name="addEvent" component={AddEvent} options={{headerShown: false ,
-                    tabBarIcon: ({focused}) => (
-                        <View>
-                            <Image source={require('../assets/calendar.png')}
-                                   resizeMode='contain'
-                                   style={{
-                                       width:25,
-                                       height:25,
-                                       opacity: focused ? 1 : 0.5,
-                                   }}/>
-
-                        </View>
-                    )}}/>
                 <Tab.Screen name="asso" component={Associations} options={{headerShown: false,
                     tabBarIcon: ({focused}) => (
                         <View>
@@ -98,7 +86,7 @@ const Tabs = () => {
                                    }}/>
                         </View>
                     )}}/>
-                <Tab.Screen name="Member" component={MembreAsso} options={{headerShown: false,
+                <Tab.Screen name="Profile" component={Profile} options={{headerShown: false,
                     tabBarIcon: ({focused}) => (
                         <View>
                             <Image source={require('../assets/user2.png')}

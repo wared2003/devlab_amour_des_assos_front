@@ -1,31 +1,52 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, Image, TextInput, ScrollView, FlatList} from "react-native";
+import {StyleSheet, View, Text, Image, TextInput, ScrollView, FlatList, TouchableOpacity} from "react-native";
 import CustomTextInput from "./TextInput";
 import EventFilterBtn from "./event_filter_btn";
 import CustomButton from "./button";
 import EventCard from "./event-card";
 import EventCardWait from "./event-card-wait";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {getAssoByUser, getMe, getMyEvents} from "../API/api";
 class Profile extends React.Component{
 
     constructor(props){
         super(props)
         this.state = {
             events: [],
+            user: [],
             isLoading: false //no loading by default
         }
     }
+
+    componentDidMount() {
+        AsyncStorage.getItem('@jwt:key')
+            .then(jwt => {
+                getMyEvents(jwt).then(data => {
+                    this.setState({
+                        events: data.data
+                    })
+                    console.log(data.data)
+                })
+                getMe(jwt).then(data => {
+                    this.setState({
+                        user: data.data
+                    })
+                    console.log(data.data)
+                })
+            })
+    }
+
+    logout(){
+        AsyncStorage.clear()
+        this.props.navigation.navigate('Login')
+    }
+
 
     render() {
         return(
 
 
             <ScrollView style={styles.scrollView}>
-                <View style={styles.leaveButton}>
-                    <Image
-                        style={styles.leaveImg}
-                        source={require('../assets/icon/leave.png')}
-                    />
-                </View>
                 <View>
                 </View>
                 <View style={styles.profileHeader}>
@@ -44,9 +65,13 @@ class Profile extends React.Component{
                         />
                     </View>
                     <View style={styles.profileHeaderTexts}>
-                        <Text style={styles.profileName}>Quention Drouet </Text> {/*Name Profile*/}
-                        <Text style={styles.profileStudies}>IIM - A2</Text> {/*Studies*/}
+                        <Text style={styles.profileName}>{this.state.user.firstName} {this.state.user.lastName}</Text> {/*Name Profile*/}
                     </View>
+                    <TouchableOpacity style={styles.button} onPress={() => {
+                        this.logout()
+                    }}>
+                        <Text style={styles.text_button}>Déconnections</Text>
+                    </TouchableOpacity>
                 </View>
                 <View>
                     <View style={styles.profileSettings}>
@@ -96,10 +121,7 @@ class Profile extends React.Component{
                     </View>
                 </View>
                 <View>
-                    <Text style={styles.profileEvents}>Événements à venir</Text>
-                    <EventCardWait/>
-                    <EventCard/>
-                    <EventCard/>
+                    <Text style={styles.profileEvents}>Événements inscrit</Text>
                 </View>
 
                 <FlatList
@@ -118,11 +140,7 @@ const styles = StyleSheet.create({
         width: "90%",
         alignSelf: "center",
     },
-    leaveButton: {
-
-    },
     profileHeader: {
-        flex: 1,
         alignItems: "center",
     },
     profileHeaderTexts: {
@@ -197,6 +215,23 @@ const styles = StyleSheet.create({
         marginBottom: 16,
         marginTop: 16,
     },
+
+    button: {
+        padding: 10,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: 12,
+        backgroundColor: '#414BCD',
+        borderRadius: 20,
+        bottom: 0,
+    },
+
+    text_button: {
+        color: '#FFFFFF',
+        fontWeight: '600',
+        fontSize: 16,
+        textAlign: "center",
+    }
 
 })
 

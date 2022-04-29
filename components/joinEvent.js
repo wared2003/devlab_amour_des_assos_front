@@ -33,17 +33,21 @@ class JoinEvent extends React.Component{
     }
 
     async getTicket(ticketId) {
-        buyTicket()
-            .then((response)=>{
-                if (response.data.needBilling){
-                    let jwt = AsyncStorage.getItem('@jwt:key')
-                    jwt.then(async (res) => {
-                        let result = await WebBrowser.openBrowserAsync(`http://stripe-devlab.vercel.app?jwt=${res}&paymentIntent=${response.data.stripe.paymentIntent}&publishableKey=${response.data.stripe.publishableKey&success=false}`);
-                    })
-                }else{
+        let jwt = AsyncStorage.getItem('@jwt:key')
+        jwt.then(jwt =>{
+            console.log(jwt)
+            buyTicket(ticketId, jwt)
+                .then((response)=>{
+                    if (response.data.needBilling){
 
-                }
-            })
+                        jwt.then(async (res) => {
+                            let result = await WebBrowser.openBrowserAsync(`http://stripe-devlab.vercel.app?jwt=${res}&paymentIntent=${response.data.stripe.paymentIntent}&publishableKey=${response.data.stripe.publishableKey&success==false}`);
+                        })
+                    }else{
+                        return false
+                    }
+                })
+        })
     }
 
     componentDidMount(){
@@ -99,17 +103,17 @@ class JoinEvent extends React.Component{
                         </View>
                         <Text style={styles.aPropos}>A propos</Text>
                         <Text style={styles.description_aPropos}>{event.description}</Text>
-                        <TouchableOpacity style={styles.button} onPress={() => {this.getTicket()}}>
+                        <TouchableOpacity style={styles.button} onPress={() => {this.getTicket(event.id)}}>
                             <Text style={styles.text_button}>M'INSCRIRE</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
             )
 
-        // }
+        }
     }
     
-    render() {
+    render(){
         return (
             <View style={styles.main_container}>
                 {this._displayLoading()}

@@ -71,7 +71,6 @@ export default class Associations extends React.Component {
                 <ScrollView style={styles.body}>
                     <Text style={styles.headerTitre}>Associations</Text>
                     <SearchEvent/>
-                    <EventFilterBtn/>
                     <Text style={styles.otherAssoTitre}>Mes associations</Text>
                     <FlatList
                         horizontal={true}

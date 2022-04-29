@@ -1,10 +1,5 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, Image, TextInput, ScrollView, FlatList} from "react-native";
-import CustomTextInput from "./TextInput";
-import EventFilterBtn from "./event_filter_btn";
-import CustomButton from "./button";
-import EventCard from "./event-card";
-import Button from "./button";
 import EventCardWait from "./event-card-wait";
 import {getAssoById, getEventByAssociation, getUrlImage} from "../API/api";
 class AssoDetail extends React.Component{
