@@ -2,6 +2,14 @@ import React from "react";
 import { StyleSheet, View, Text,ActivityIndicator, Image, TouchableOpacity } from "react-native";
 import {getEventById, getUrlImage} from "../API/api";
 import moment from "moment";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import checkout from "./checkout";
+
+
+import {buyTicket} from "../API/api";
+import * as WebBrowser from "expo-web-browser";
+// import CheckoutScreen from "./checkout";
 // import { getFilmDetailFromApi, getImageFromApi } from "../API/TMDBApi";
 
 class JoinEvent extends React.Component{
@@ -21,6 +29,21 @@ class JoinEvent extends React.Component{
                 </View>
             )
         }
+
+    }
+
+    async getTicket(ticketId) {
+        buyTicket()
+            .then((response)=>{
+                if (response.data.needBilling){
+                    let jwt = AsyncStorage.getItem('@jwt:key')
+                    jwt.then(async (res) => {
+                        let result = await WebBrowser.openBrowserAsync(`http://stripe-devlab.vercel.app?jwt=${res}&paymentIntent=${response.data.stripe.paymentIntent}&publishableKey=${response.data.stripe.publishableKey&success=false}`);
+                    })
+                }else{
+
+                }
+            })
     }
 
     componentDidMount(){
@@ -76,14 +99,14 @@ class JoinEvent extends React.Component{
                         </View>
                         <Text style={styles.aPropos}>A propos</Text>
                         <Text style={styles.description_aPropos}>{event.description}</Text>
-                        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Home')}>
+                        <TouchableOpacity style={styles.button} onPress={() => {this.getTicket()}}>
                             <Text style={styles.text_button}>M'INSCRIRE</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
             )
 
-        }
+        // }
     }
     
     render() {

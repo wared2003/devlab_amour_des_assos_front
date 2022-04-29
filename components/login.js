@@ -13,7 +13,6 @@ class Login extends React.Component {
             password: ''
         }
     }
-
     _storeData(jwt){
         try {
             AsyncStorage.setItem(
