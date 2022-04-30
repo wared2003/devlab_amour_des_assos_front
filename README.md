@@ -15,7 +15,10 @@ Pour le développement nous utilisons expo, il faut nodejs pour faire fonctioner
 
 > installation d'expo:
 >> sous linux et mac:
->>>sudo npm -g install expo-cli  
+>>>sudo npm -g install expo-cli
+> 
+>> sous windows:
+>>>npm -g install expo-cli  
 
 
 ___

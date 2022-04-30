@@ -1,21 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import Tabs from "./components/tabs";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+
+
+//pour chaque page qui contient une navigation de type stack, creer une navigation homestack comme suit puis l'inclure dans la bar de navigation tabscreen.
+
+//navigation stack de la homepage:
+//<headerShown : false>permet de ne pas afficher le header.
+
+
+
+
+//bar de navigation general :
+const Navigation = () => {
+    return (
+        <NavigationContainer>
+            <Tabs/>
+        </NavigationContainer>
+    );
+};
+
+export default Navigation;
+
